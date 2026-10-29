@@ -1,0 +1,32 @@
+name: Congressional Disclosure Auto-Monitor
+
+on:
+  schedule:
+    # ⏱️ 定时设置：UTC 时间每天 12:00 和 22:00（美东时间早/晚）自动运行
+    - cron: '0 12,22 * * *'
+  workflow_dispatch: # 允许您随时在 GitHub 网页上点击按钮“手动触发”运行
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: 拉取您仓库最新的代码
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: 配置 Python 3.10 环境
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      # Step 3: 安装脚本所需的第三方依赖包
+      - name: Install Dependencies
+        run: |
+          pip install requests pandas
+
+      # Step 4: 运行检测白名单议员新文件的 Python 脚本
+      - name: Run Member Monitor Script
+        run: |
+          python check_updates.py
