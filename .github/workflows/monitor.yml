@@ -2,9 +2,8 @@ name: Congressional Disclosure Auto-Monitor
 
 on:
   schedule:
-    # 每天 UTC 12:00 和 22:00 自动触发检查
     - cron: '0 12,22 * * *'
-  workflow_dispatch: # 支持在 GitHub 界面手动点击运行
+  workflow_dispatch:
 
 jobs:
   monitor:
@@ -25,6 +24,8 @@ jobs:
 
       - name: Run Member Monitor Script
         env:
-          PUSHPLUS_TOKEN: ${{ secrets.PUSHPLUS_TOKEN }}
+          MAIL_USER: ${{ secrets.MAIL_USER }}
+          MAIL_PASS: ${{ secrets.MAIL_PASS }}
+          RECEIVER_MAIL: ${{ secrets.RECEIVER_MAIL }}
         run: |
           python check_updates.py
