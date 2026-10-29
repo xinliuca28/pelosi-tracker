@@ -1,9 +1,14 @@
 import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
 import streamlit as st
+import yfinance as yf
 
-# 页面基础配置
+# 页面配置
 st.set_page_config(
-    page_title="佩洛西股票持仓与期权实时看板", layout="wide"
+    page_title="佩洛西股票持仓与期权实时看板",
+    page_icon="🏛️",
+    layout="wide",
 )
 
 # ------------------------------------
@@ -34,29 +39,41 @@ holdings_data = {
         "Bloom Energy Corporation",
         "Intel Corporation",
     ],
-    "网站估算持仓金额": [
-        "约 $1,610 万",
-        "约 $1,590 万",
-        "约 $1,560 万",
-        "约 $1,540 万",
-        "约 $1,500 万",
-        "约 $1,500 万",
-        "约 $1,500 万",
-        "约 $1,500 万",
-        "约 $750 万",
-        "约 $410 万",
+    "买入参考基准价 ($)": [
+        140.0,
+        175.0,
+        120.0,
+        185.0,
+        140.0,
+        400.0,
+        270.0,
+        275.0,
+        12.0,
+        30.0,
     ],
-    "估算占比": [
-        "10.5%",
-        "10.4%",
-        "10.1%",
-        "10.0%",
-        "9.8%",
-        "9.8%",
-        "9.8%",
-        "9.8%",
-        "4.9%",
-        "2.7%",
+    "估算持仓金额 (万美元)": [
+        1610,
+        1590,
+        1560,
+        1540,
+        1500,
+        1500,
+        1500,
+        1500,
+        750,
+        410,
+    ],
+    "估算占比 (%)": [
+        10.5,
+        10.4,
+        10.1,
+        10.0,
+        9.8,
+        9.8,
+        9.8,
+        9.8,
+        4.9,
+        2.7,
     ],
 }
 
@@ -117,72 +134,152 @@ options_data = {
 df_holdings = pd.DataFrame(holdings_data)
 df_options = pd.DataFrame(options_data)
 
-# 自动获取当前数据集中的最新披露日期
+
+# ------------------------------------
+# 2. 核心行情抓取：yfinance 实时数据
+# ------------------------------------
+@st.cache_data(ttl=300)
+def fetch_realtime_prices(tickers):
+    prices = {}
+    try:
+        data = yf.Tickers(" ".join(tickers))
+        for ticker in tickers:
+            fast_info = data.tickers[ticker].fast_info
+            prices[ticker] = fast_info["lastPrice"]
+    except Exception as e:
+        st.warning(f"行情接口提示: {e}")
+    return prices
+
+
+with st.spinner("正在链接 Yahoo Finance 实时行情并生成 Plotly 交互图表..."):
+    tickers_list = df_holdings["股票代码"].tolist()
+    realtime_prices = fetch_realtime_prices(tickers_list)
+
+    df_holdings["当前最新价 ($)"] = df_holdings["股票代码"].map(
+        lambda t: round(realtime_prices.get(t, 0.0), 2)
+    )
+
+    df_holdings["估算持仓表现 (%)"] = (
+        (
+            df_holdings["当前最新价 ($)"]
+            - df_holdings["买入参考基准价 ($)"]
+        )
+        / df_holdings["买入参考基准价 ($)"]
+        * 100
+    ).round(2)
+
 latest_filing_date = df_options["国会申报/披露日期 (Filing Date)"].max()
 
 # ------------------------------------
-# 2. 页面 Header 及自动加载的小字说明
+# 3. 页面 Header 及小字
 # ------------------------------------
 st.title("🏛️ 佩洛西（Nancy Pelosi）持仓与交易自动追踪看板")
 
-# 开头动态渲染的小字：根据最新 Filing Date 自动变动
 st.caption(
     f"📌 **数据披露更新**：根据美国国会 STOCK Act 官方申报公开资料，截至"
-    f" **{latest_filing_date}** 的最新披露信息自动汇总生成。"
-)
-
-st.write("")  # 增加间距
-
-# ------------------------------------
-# 模块一：佩洛西目前的主要持仓（还原截图 1 样式）
-# ------------------------------------
-st.markdown("### 1. 佩洛西目前的主要持仓")
-st.write(
-    "根据 Capitol Ledger 公开申报资料核对，网站估算其股票及期权组合约为 **1.537"
-    " 亿美元**，涉及约 35 个持仓项目。"
-    " 这是基于披露金额区间等数据计算的估算值，并非官方公布的实时账户余额。"
-)
-
-st.dataframe(
-    df_holdings,
-    use_container_width=True,
-    hide_index=True,
-    column_config={
-        "股票代码": st.column_config.TextColumn("股票代码", width="medium"),
-        "公司": st.column_config.TextColumn("公司", width="large"),
-        "网站估算持仓金额": st.column_config.TextColumn(
-            "网站估算持仓金额", width="large"
-        ),
-        "估算占比": st.column_config.TextColumn("估算占比", width="medium"),
-    },
-)
-
-st.write("")  # 增加间距
-
-# ------------------------------------
-# 模块二：最近披露了哪些买入？（还原截图 2 样式，增加期权标注）
-# ------------------------------------
-st.markdown("### 2. 最近披露了哪些买入？")
-st.write("截至目前检索到的最新披露，主要有以下记录：")
-
-# 列表要点说明
-st.markdown(
-    f"- **{latest_filing_date} 申报**：申报投资 REOF XXX, LLC，金额为 50 万至 100"
-    " 万美元；这是房地产相关 LLC 投资，并非普通股票。"
-)
-st.markdown(
-    "- **2026 年 8 月 21 日申报**：多笔 Bloom Energy (BE) 股票及看涨期权交易。"
-)
-st.markdown(
-    "- **2026 年 8 月 21 日申报**：多笔 Intel (INTC) 股票及期权交易。"
-)
-st.markdown(
-    "- **2026 年 6 月 23 日申报**：披露购买 Uber 股票及相关看涨期权。"
+    f" **{latest_filing_date}** 的最新披露信息自动汇总生成。| ⚡ **行情与图表**：对接到"
+    " Yahoo Finance 实时报价与 Plotly 动态分析。"
 )
 
 st.write("")
 
-# 呈现带分栏的完整明细表格
+# ------------------------------------
+# 4. 模块一：Plotly 动态可视化分析（新增亮点）
+# ------------------------------------
+st.markdown("### 📊 持仓组合可视化分析 (Plotly)")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    # 1. 资产配置占比环形图
+    fig_pie = px.pie(
+        df_holdings,
+        values="估算持仓金额 (万美元)",
+        names="股票代码",
+        title="<b>重仓股资产配置占比 (%)</b>",
+        hole=0.4,
+        color_discrete_sequence=px.colors.qualitative.Pastel,
+    )
+    fig_pie.update_traces(
+        textposition="inside", textinfo="percent+label"
+    )
+    fig_pie.update_layout(margin=dict(t=40, b=10, l=10, r=10), height=350)
+    st.plotly_chart(fig_pie, use_container_width=True)
+
+with col2:
+    # 2. 持仓股票实时涨跌表现柱状图
+    # 区分红绿颜色 (涨为绿/正，跌为红/负)
+    colors = [
+        "#26a69a" if val >= 0 else "#ef5350"
+        for val in df_holdings["估算持仓表现 (%)"]
+    ]
+
+    fig_bar = go.Figure(
+        data=[
+            go.Bar(
+                x=df_holdings["股票代码"],
+                y=df_holdings["估算持仓表现 (%)"],
+                marker_color=colors,
+                text=df_holdings["估算持仓表现 (%)"].apply(
+                    lambda x: f"{x:+.1f}%"
+                ),
+                textposition="auto",
+            )
+        ]
+    )
+    fig_bar.update_layout(
+        title="<b>买入参考基准至今的估算盈亏表现 (%)</b>",
+        xaxis_title="股票代码",
+        yaxis_title="涨跌幅 (%)",
+        margin=dict(t=40, b=10, l=10, r=10),
+        height=350,
+    )
+    st.plotly_chart(fig_bar, use_container_width=True)
+
+st.write("")
+
+# ------------------------------------
+# 5. 模块二：持仓与期权表格
+# ------------------------------------
+st.markdown("### 1. 佩洛西目前的主要持仓（实时行情）")
+
+df_display = df_holdings[
+    [
+        "股票代码",
+        "公司",
+        "估算持仓金额 (万美元)",
+        "估算占比 (%)",
+        "买入参考基准价 ($)",
+        "当前最新价 ($)",
+        "估算持仓表现 (%)",
+    ]
+]
+
+st.dataframe(
+    df_display,
+    use_container_width=True,
+    hide_index=True,
+    column_config={
+        "股票代码": st.column_config.TextColumn("股票代码", width="small"),
+        "公司": st.column_config.TextColumn("公司", width="medium"),
+        "估算持仓金额 (万美元)": st.column_config.NumberColumn(
+            "估算持仓金额 (万美元)", format="$%d万"
+        ),
+        "当前最新价 ($)": st.column_config.NumberColumn(
+            "当前最新价 ($)", format="$%.2f"
+        ),
+        "买入参考基准价 ($)": st.column_config.NumberColumn(
+            "买入参考基准价 ($)", format="$%.2f"
+        ),
+        "估算持仓表现 (%)": st.column_config.NumberColumn(
+            "估算持仓表现 (%)", format="%.2f%%"
+        ),
+    },
+)
+
+st.write("")
+
+st.markdown("### 2. 最近披露了哪些买入？")
 st.subheader("📋 详细披露与期权明细（包含交易日与申报日）")
 st.dataframe(
     df_options,
@@ -202,13 +299,12 @@ st.dataframe(
     },
 )
 
-st.write("")  # 增加间距
+st.write("")
 
 # ------------------------------------
-# 模块三：如何理解这些数据？（还原截图 2 底部注意事项）
+# 6. 注意事项说明
 # ------------------------------------
 st.markdown("### 3. 如何理解这些数据？")
-st.write("有三点需要注意：")
 st.markdown(
     "1. **披露不等于实时持仓**。"
     " 美国国会议员可以在交易发生后的一段时间内申报，因此公开数据存在时间差。"
