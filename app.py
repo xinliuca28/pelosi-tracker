@@ -231,6 +231,7 @@ st.dataframe(
     df_holdings[["Ticker", "Company", "Est. Value ($10k)", "Est. Allocation (%)", "Est. Cost Basis ($)", "Current Price ($)", "Est. ROI (%)"]],
     use_container_width=True,
     hide_index=True,
+)
     column_config={
         "Est. Value ($10k)": st.column_config.NumberColumn
     }
