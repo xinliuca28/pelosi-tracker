@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 import streamlit as st
 import yfinance as yf
 
-# 页面配置
+# 页面基础配置
 st.set_page_config(
     page_title="佩洛西股票持仓与期权实时看板",
     page_icon="🏛️",
@@ -12,7 +12,7 @@ st.set_page_config(
 )
 
 # ------------------------------------
-# 1. 基础数据源定义
+# 1. 基础数据源定义（补充合约股数与区间金额数字）
 # ------------------------------------
 holdings_data = {
     "股票代码": [
@@ -129,14 +129,41 @@ options_data = {
         "$500,001 - $1,000,000",
         "$250,001 - $500,000",
     ],
+    # 计算估算权利金所需的参数 (区间中点与对应标的股数)
+    "midpoint_val": [
+        750000,
+        750000,
+        750000,
+        3000000,
+        375000,
+        3000000,
+        750000,
+        375000,
+    ],
+    "underlying_shares": [None, 10000, 5000, 10000, 5000, 20000, 20000, 5000],
 }
 
 df_holdings = pd.DataFrame(holdings_data)
 df_options = pd.DataFrame(options_data)
 
+# ------------------------------------
+# 2. 动态计算估算权利金 (Premium)
+# ------------------------------------
+# 仅对 Call Option 类型计算每股权利金 (区间中点 / 对应正股总数)
+df_options["估算单股买入价 / 权利金 ($)"] = df_options.apply(
+    lambda row: round(row["midpoint_val"] / row["underlying_shares"], 2)
+    if row["underlying_shares"] and "Call" in row["资产分类"]
+    else (
+        round(row["midpoint_val"] / row["underlying_shares"], 2)
+        if row["underlying_shares"] and "Stock" in row["资产分类"]
+        else None
+    ),
+    axis=1,
+)
+
 
 # ------------------------------------
-# 2. 核心行情抓取：yfinance 实时数据
+# 3. 核心行情抓取：yfinance
 # ------------------------------------
 @st.cache_data(ttl=300)
 def fetch_realtime_prices(tickers):
@@ -171,7 +198,7 @@ with st.spinner("正在链接 Yahoo Finance 实时行情并生成 Plotly 交互�
 latest_filing_date = df_options["国会申报/披露日期 (Filing Date)"].max()
 
 # ------------------------------------
-# 3. 页面 Header 及小字
+# 4. Header 与小字
 # ------------------------------------
 st.title("🏛️ 佩洛西（Nancy Pelosi）持仓与交易自动追踪看板")
 
@@ -184,14 +211,13 @@ st.caption(
 st.write("")
 
 # ------------------------------------
-# 4. 模块一：Plotly 动态可视化分析（新增亮点）
+# 5. Plotly 可视化模块
 # ------------------------------------
 st.markdown("### 📊 持仓组合可视化分析 (Plotly)")
 
 col1, col2 = st.columns(2)
 
 with col1:
-    # 1. 资产配置占比环形图
     fig_pie = px.pie(
         df_holdings,
         values="估算持仓金额 (万美元)",
@@ -207,8 +233,6 @@ with col1:
     st.plotly_chart(fig_pie, use_container_width=True)
 
 with col2:
-    # 2. 持仓股票实时涨跌表现柱状图
-    # 区分红绿颜色 (涨为绿/正，跌为红/负)
     colors = [
         "#26a69a" if val >= 0 else "#ef5350"
         for val in df_holdings["估算持仓表现 (%)"]
@@ -239,7 +263,7 @@ with col2:
 st.write("")
 
 # ------------------------------------
-# 5. 模块二：持仓与期权表格
+# 6. 表格展示 (含最新加注的估算权利金)
 # ------------------------------------
 st.markdown("### 1. 佩洛西目前的主要持仓（实时行情）")
 
@@ -280,9 +304,26 @@ st.dataframe(
 st.write("")
 
 st.markdown("### 2. 最近披露了哪些买入？")
-st.subheader("📋 详细披露与期权明细（包含交易日与申报日）")
+st.caption(
+    "💡 **注**：根据 STOCK Act"
+    " 规定，官方仅申报总金额区间。下表中新增的「**估算每股权利金**」是基于申报区间中点与合约对应股数反推得出的参考价。"
+)
+
+# 过滤并按合适顺序输出交易明细表
+df_options_display = df_options[
+    [
+        "国会申报/披露日期 (Filing Date)",
+        "实际交易日期 (Trade Date)",
+        "标的代码",
+        "资产分类",
+        "交易细节描述 / 行权价与到期日",
+        "申报区间金额",
+        "估算单股买入价 / 权利金 ($)",
+    ]
+]
+
 st.dataframe(
-    df_options,
+    df_options_display,
     use_container_width=True,
     hide_index=True,
     column_config={
@@ -295,14 +336,17 @@ st.dataframe(
                 "LLC Real Estate (房地产投资)",
             ],
             required=True,
-        )
+        ),
+        "估算单股买入价 / 权利金 ($)": st.column_config.NumberColumn(
+            "估算单股权利金/买价 ($)", format="$%.2f"
+        ),
     },
 )
 
 st.write("")
 
 # ------------------------------------
-# 6. 注意事项说明
+# 7. 说明事项
 # ------------------------------------
 st.markdown("### 3. 如何理解这些数据？")
 st.markdown(
@@ -310,10 +354,9 @@ st.markdown(
     " 美国国会议员可以在交易发生后的一段时间内申报，因此公开数据存在时间差。"
 )
 st.markdown(
-    "2. **金额是区间**。 例如，申报金额可能是 100 万至 500"
-    " 万美元，第三方网站通常用区间中点等方法估算。"
+    "2. **金额是区间与中点估算**。 申报金额为区间（如 $1,000,001 - $5,000,000），每股权利金是由区间中点值除以标的股数推算出来的估算参考值。"
 )
 st.markdown(
     "3. **股票和期权要分开看**。"
-    " 看涨期权并不等同于直接持有相同数量的股票，风险和价值变化方式也不同。"
+    " 看涨期权（Call Option）自带杠杆效应，买入价格为权利金（Premium），并不等同于直接持有正股。"
 )
