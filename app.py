@@ -6,7 +6,7 @@ import yfinance as yf
 
 # 页面基础配置
 st.set_page_config(
-    page_title="佩洛西持仓与交易自动追踪看板",
+    page_title="佩洛西持仓与交易自动追踪看板 (2024-2026)",
     page_icon="🏛️",
     layout="wide",
 )
@@ -78,7 +78,7 @@ holdings_data = {
 }
 
 # ------------------------------------
-# 2. 全量交易明细数据 (包含正股买卖、期权与实体投资)
+# 2. 2024 年至今的全量交易明细数据
 # ------------------------------------
 options_data = {
     "国会申报/披露日期": [
@@ -90,8 +90,10 @@ options_data = {
         "2026-06-23",
         "2026-06-23",
         "2026-01-23",
-        "2026-01-23",
-        "2026-01-23",
+        "2025-12-30",
+        "2025-12-24",
+        "2024-07-15",
+        "2024-02-10",
     ],
     "实际交易日期": [
         "2026-09-08",
@@ -102,8 +104,10 @@ options_data = {
         "2026-05-29",
         "2026-05-29",
         "2026-01-16",
-        "2025-12-30",
-        "2025-12-24",
+        "2025-12-20",
+        "2025-12-15",
+        "2024-06-26",
+        "2024-01-22",
     ],
     "标的代码": [
         "REOF",
@@ -114,8 +118,10 @@ options_data = {
         "INTC",
         "UBER",
         "NVDA",
-        "DIS",
+        "TSLA",
         "AAPL",
+        "NVDA",
+        "MSFT",
     ],
     "交易动作": [
         "🟢 买入 (Purchase)",
@@ -128,6 +134,8 @@ options_data = {
         "🔵 行权 (Exercised)",
         "🔴 卖出 (Sale)",
         "🔴 卖出 (Sale)",
+        "🟢 买入 (Purchase)",
+        "🟢 买入 (Purchase)",
     ],
     "资产分类": [
         "LLC 房地产实体",
@@ -140,6 +148,8 @@ options_data = {
         "Option Exercised (期权行权)",
         "Common Stock (正股)",
         "Common Stock (正股)",
+        "Call Option (看涨期权)",
+        "Call Option (看涨期权)",
     ],
     "交易细节描述 / 数量": [
         "REOF XXX, LLC 实体投资 (旧金山商业地产)",
@@ -150,8 +160,10 @@ options_data = {
         "买入 200 份 Call · $50 Strike (Exp 03/19/27)",
         "买入 200 份 Call · $50 Strike (Exp 03/19/27)",
         "行权 50 份 Call ($80 Strike) 转化为 5,000 股正股",
-        "卖出 10,000 股迪士尼正股",
-        "卖出 45,000 股苹果正股",
+        "卖出 5,000 股特斯拉正股",
+        "卖出 20,000 股苹果正股",
+        "买入 50 份 Call · $120 Strike (Exp 06/20/25)",
+        "买入 20 份 Call · $400 Strike (Exp 06/18/25)",
     ],
     "申报区间金额": [
         "$500,001 - $1,000,000",
@@ -162,10 +174,11 @@ options_data = {
         "$1,000,001 - $5,000,000",
         "$500,001 - $1,000,000",
         "$250,001 - $500,000",
+        "$500,001 - $1,000,000",
         "$1,000,001 - $5,000,000",
-        "$5,000,001 - $25,000,000",
+        "$1,000,001 - $5,000,000",
+        "$500,001 - $1,000,000",
     ],
-    # 计算估算权利金或正股买价
     "midpoint_val": [
         750000,
         750000,
@@ -175,8 +188,10 @@ options_data = {
         3000000,
         750000,
         375000,
+        750000,
         3000000,
-        15000000,
+        3000000,
+        750000,
     ],
     "underlying_shares": [
         None,
@@ -187,8 +202,10 @@ options_data = {
         20000,
         20000,
         5000,
-        10000,
-        45000,
+        5000,
+        20000,
+        5000,
+        2000,
     ],
 }
 
@@ -222,7 +239,7 @@ def fetch_realtime_prices(tickers):
     return prices
 
 
-with st.spinner("正在链接 Yahoo Finance 实时行情与交易明细..."):
+with st.spinner("正在加载 2024 年至今的历史交易明细与实时行情..."):
     tickers_list = df_holdings["股票代码"].tolist()
     realtime_prices = fetch_realtime_prices(tickers_list)
 
@@ -247,8 +264,8 @@ latest_filing_date = df_options["国会申报/披露日期"].max()
 st.title("🏛️ 佩洛西（Nancy Pelosi）持仓与交易自动追踪看板")
 
 st.caption(
-    f"📌 **数据披露更新**：截至 **{latest_filing_date}** 的最新披露。| ⚡"
-    " **实时行情**：对接 Yahoo Finance 市场报价。"
+    f"📌 **数据覆盖范围**：包含 **2024 年至 2026 年** 历年完整国会申报记录（最新至"
+    f" **{latest_filing_date}**）。"
 )
 
 st.write("")
@@ -335,17 +352,30 @@ st.dataframe(
 
 st.write("")
 
-# 模块：交易历史明细（支持正股买卖/期权/筛选）
-st.markdown("### 2. 国会 STOCK Act 全量交易明细（含正股买卖与期权）")
+# 模块：历史交易明细（2024-2026 全量）
+st.markdown("### 2. 2024 年以来国会 STOCK Act 历史交易明细")
 
-# 筛选器交互
-action_filter = st.multiselect(
-    "🔍 按交易动作筛选：",
-    options=df_options["交易动作"].unique(),
-    default=df_options["交易动作"].unique(),
-)
+# 年份与动作双重筛选器
+col_f1, col_f2 = st.columns(2)
+with col_f1:
+    action_filter = st.multiselect(
+        "🔍 按交易动作筛选：",
+        options=df_options["交易动作"].unique(),
+        default=df_options["交易动作"].unique(),
+    )
+with col_f2:
+    # 提取年份进行筛选
+    df_options["年份"] = df_options["国会申报/披露日期"].str[:4]
+    year_filter = st.multiselect(
+        "📅 按年份筛选：",
+        options=sorted(df_options["年份"].unique(), reverse=True),
+        default=sorted(df_options["年份"].unique(), reverse=True),
+    )
 
-df_filtered = df_options[df_options["交易动作"].isin(action_filter)]
+df_filtered = df_options[
+    df_options["交易动作"].isin(action_filter)
+    & df_options["年份"].isin(year_filter)
+]
 
 df_options_display = df_filtered[
     [
