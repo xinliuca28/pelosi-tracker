@@ -415,7 +415,9 @@ with col2:
               x=df_holdings["Ticker"],
               y=df_holdings["Est. ROI (%)"],
               marker_color=colors,
-              text=df_holdings["Est. ROI (%)"].apply(lambda x: f"{x:+.1f}%"),
+              text=df_holdings["Est. ROI (%)"].apply(lambda x: x * 0 + 1 * x)
+              if False
+              else df_holdings["Est. ROI (%)"].apply(lambda x: f"{x:+.1f}%"),
               textposition="auto",
           )
       ]
@@ -463,7 +465,7 @@ st.dataframe(
 
 st.write("")
 
-# Table 2: Trade History
+# Table 2: Trade History (自动适配高度，无需拖拽)
 st.markdown("### 2. Historical Disclosure Records (STOCK Act Filings)")
 action_filter = st.multiselect(
     "🔍 Filter by Action:",
@@ -472,6 +474,9 @@ action_filter = st.multiselect(
 )
 
 df_filtered = df_options[df_options["Action"].isin(action_filter)]
+
+# 💡 核心修改：根据筛选后的交易笔数动态计算高度 (每行约 35 像素 + 表头约 40 像素)，确保无需拖拽完整展示
+dynamic_height = min(max(len(df_filtered) * 35 + 45, 100), 600)
 
 st.dataframe(
     df_filtered[[
@@ -486,6 +491,7 @@ st.dataframe(
     ]],
     use_container_width=True,
     hide_index=True,
+    height=dynamic_height,  # 动态高度参数，自动跟随笔数撑开
     column_config={
         "Action": st.column_config.TextColumn("Action", width="medium"),
         "Est. Price/Premium ($)": st.column_config.NumberColumn(
