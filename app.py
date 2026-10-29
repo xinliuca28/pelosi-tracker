@@ -233,3 +233,4 @@ st.dataframe(
     hide_index=True,
     column_config={
         "Est. Value ($10k)": st.column_config.NumberColumn
+    }
