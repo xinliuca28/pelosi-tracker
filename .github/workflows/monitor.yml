@@ -1,31 +1,27 @@
-name: Congressional Disclosure Auto-Monitor
+name: Auto-Sync All Trackers Data
 
 on:
   schedule:
-    - cron: '0 12,22 * * *'
+    - cron: '0 8 * * *' # 每天自动运行一次
   workflow_dispatch:
 
 jobs:
-  monitor:
+  sync:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-
-      - name: Install Dependencies
+      - name: Install dependencies
+        run: pip install pandas requests
+      - name: Run data sync script
+        run: python fetch_all_trackers.py
+      - name: Commit and push changes
         run: |
-          pip install requests pandas
-
-      - name: Run Member Monitor Script
-        env:
-          MAIL_USER: ${{ secrets.MAIL_USER }}
-          MAIL_PASS: ${{ secrets.MAIL_PASS }}
-          RECEIVER_MAIL: ${{ secrets.RECEIVER_MAIL }}
-        run: |
-          python check_updates.py
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/trackers_data.json
+          git commit -m "chore: auto-update tracker disclosures from external APIs" || exit 0
+          git push
