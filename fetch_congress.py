@@ -3,48 +3,69 @@ import os
 import requests
 from datetime import datetime, timedelta
 
+def parse_flexible_date(date_str):
+    if not date_str:
+        return None
+    formats = ["%Y-%m-%d", "%m/%d/%Y", "%Y-%m-%dT%H:%M:%S", "%Y/%m/%d"]
+    for fmt in formats:
+        try:
+            return datetime.strptime(date_str, fmt)
+        except ValueError:
+            pass
+    return None
+
 def update_congress_dynamically():
-    print("Fetching trade history using Financial Modeling Prep (FMP) API...")
-    api_key = os.environ.get("FMP_API_KEY")
-    
-    if not api_key or api_key == "YOUR_API_KEY_HERE":
-        print("ERROR: FMP_API_KEY is not set. API request will fail.")
+    print("Fetching trade history from free public House Stock Watcher API...")
+    url = "https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json"
+
+    raw_congress = []
+    try:
+        # 添加 User-Agent 请求头，防止被 AWS S3 防火墙拦截 (解决之前的 403 拦截问题)
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
+        res = requests.get(url, headers=headers, timeout=30)
+        if res.status_code == 200:
+            raw_congress = res.json()
+            print(f"Success: Fetched {len(raw_congress)} total records from public API.")
+        else:
+            print(f"API Error (Public S3): {res.status_code}")
+            return
+    except Exception as e:
+        print(f"Error fetching congress data: {e}")
         return
 
+    ten_years_ago = datetime.now() - timedelta(days=365 * 10)
+
+    # 使用宽泛的姓氏匹配
     target_politicians = {
-        "Nancy Pelosi (D - House)": {"endpoint": "house-trades-by-name", "name": "nancy pelosi"},
-        "Tommy Tuberville (R - Senate)": {"endpoint": "senate-trades-by-name", "name": "tommy tuberville"},
-        "Mark Green (R - House)": {"endpoint": "house-trades-by-name", "name": "mark green"},
-        "Dan Crenshaw (R - House)": {"endpoint": "house-trades-by-name", "name": "dan crenshaw"},
-        "Josh Gottheimer (D - House)": {"endpoint": "house-trades-by-name", "name": "josh gottheimer"},
+        "Nancy Pelosi (D - House)": "pelosi",
+        "Tommy Tuberville (R - Senate)": "tuberville",
+        "Mark Green (R - House)": "green",
+        "Dan Crenshaw (R - House)": "crenshaw",
+        "Josh Gottheimer (D - House)": "gottheimer",
     }
 
     os.makedirs("data", exist_ok=True)
     congress_export = {}
 
-    for member_key, meta in target_politicians.items():
+    for member_key, search_name in target_politicians.items():
         member_trades = []
-        # 调用 FMP 姓名搜索接口
-        url = f"https://financialmodelingprep.com/stable/{meta['endpoint']}?name={meta['name'].replace(' ', '%20')}&apikey={api_key}"
-        
-        try:
-            res = requests.get(url, timeout=30)
-            if res.status_code == 200:
-                data = res.json()
-                if isinstance(data, list):
-                    member_trades.extend(data)
-                print(f"Success: Fetched {len(member_trades)} trades for {member_key}.")
-            else:
-                print(f"API Error for {member_key}: {res.status_code}")
-        except Exception as e:
-            print(f"Error fetching data for {member_key}: {e}")
+        for t in raw_congress:
+            rep_name = str(t.get("representative", "")).lower()
+            
+            if search_name in rep_name:
+                trade_date_str = t.get("transaction_date") or t.get("disclosure_date")
+                trade_date = parse_flexible_date(trade_date_str)
+                
+                if trade_date and trade_date >= ten_years_ago:
+                    member_trades.append(t)
+
+        print(f"Found {len(member_trades)} trades for {member_key}")
 
         formatted_trades = []
         ticker_activity = {}
 
         for t in member_trades:
-            # 兼容 FMP 的字段名
-            ticker = t.get("symbol") or t.get("ticker")
+            ticker = t.get("ticker")
             t_type = str(t.get("type", "")).lower()
 
             if ticker and ticker != "--" and ticker != "N/A":
@@ -53,18 +74,18 @@ def update_congress_dynamically():
             action = "🟢 Purchase" if "purchase" in t_type or "buy" in t_type else "🔴 Sale"
             
             formatted_trades.append({
-                "Filing Date": t.get("disclosureDate") or t.get("disclosure_date"),
-                "Trade Date": t.get("transactionDate") or t.get("transaction_date"),
+                "Filing Date": t.get("disclosure_date"),
+                "Trade Date": t.get("transaction_date"),
                 "Ticker": ticker,
                 "Action": action,
-                "Asset Class": t.get("assetType") or t.get("asset_type") or "Common Stock",
-                "Description": t.get("assetDescription") or t.get("description", "Disclosed Transaction"),
+                "Asset Class": t.get("asset_type", "Common Stock"),
+                "Description": t.get("description", "Disclosed Transaction"),
                 "Disclosed Range": t.get("amount"),
                 "midpoint_val": 750000,
                 "underlying_shares": 5000,
             })
 
-        # 动态计算核心持仓
+        # 动态聚合排名前 10 的活跃交易股票作为核心持仓
         dynamic_holdings = []
         sorted_tickers = sorted(ticker_activity.items(), key=lambda x: x[1], reverse=True)[:10]
         
@@ -86,7 +107,7 @@ def update_congress_dynamically():
 
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
-    print("Successfully generated dynamic congress_data.json via FMP")
+    print("Successfully generated dynamic congress_data.json via public S3 API")
 
 if __name__ == "__main__":
     update_congress_dynamically()
