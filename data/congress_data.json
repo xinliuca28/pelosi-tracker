@@ -1,122 +1,22 @@
 {
     "Nancy Pelosi (D - House)": {
-        "holdings": [
-            {
-                "Ticker": "NVDA",
-                "Company": "NVDA (Dynamic)",
-                "Est. Cost Basis ($)": 100.0,
-                "Est. Value ($10k)": 1000,
-                "Est. Allocation (%)": 100.0
-            }
-        ],
-        "trades": [
-            {
-                "Filing Date": "2026-11-01",
-                "Trade Date": "2026-11-01",
-                "Ticker": "NVDA",
-                "Action": "🟢 Purchase",
-                "Asset Class": "Common Stock",
-                "Description": "Fallback Data",
-                "Disclosed Range": "$1M+",
-                "midpoint_val": 750000,
-                "underlying_shares": 5000
-            }
-        ]
+        "holdings": [],
+        "trades": []
     },
     "Tommy Tuberville (R - Senate)": {
-        "holdings": [
-            {
-                "Ticker": "NVDA",
-                "Company": "NVDA (Dynamic)",
-                "Est. Cost Basis ($)": 100.0,
-                "Est. Value ($10k)": 1000,
-                "Est. Allocation (%)": 100.0
-            }
-        ],
-        "trades": [
-            {
-                "Filing Date": "2026-11-01",
-                "Trade Date": "2026-11-01",
-                "Ticker": "NVDA",
-                "Action": "🟢 Purchase",
-                "Asset Class": "Common Stock",
-                "Description": "Fallback Data",
-                "Disclosed Range": "$1M+",
-                "midpoint_val": 750000,
-                "underlying_shares": 5000
-            }
-        ]
+        "holdings": [],
+        "trades": []
     },
     "Mark Green (R - House)": {
-        "holdings": [
-            {
-                "Ticker": "NVDA",
-                "Company": "NVDA (Dynamic)",
-                "Est. Cost Basis ($)": 100.0,
-                "Est. Value ($10k)": 1000,
-                "Est. Allocation (%)": 100.0
-            }
-        ],
-        "trades": [
-            {
-                "Filing Date": "2026-11-01",
-                "Trade Date": "2026-11-01",
-                "Ticker": "NVDA",
-                "Action": "🟢 Purchase",
-                "Asset Class": "Common Stock",
-                "Description": "Fallback Data",
-                "Disclosed Range": "$1M+",
-                "midpoint_val": 750000,
-                "underlying_shares": 5000
-            }
-        ]
+        "holdings": [],
+        "trades": []
     },
     "Dan Crenshaw (R - House)": {
-        "holdings": [
-            {
-                "Ticker": "NVDA",
-                "Company": "NVDA (Dynamic)",
-                "Est. Cost Basis ($)": 100.0,
-                "Est. Value ($10k)": 1000,
-                "Est. Allocation (%)": 100.0
-            }
-        ],
-        "trades": [
-            {
-                "Filing Date": "2026-11-01",
-                "Trade Date": "2026-11-01",
-                "Ticker": "NVDA",
-                "Action": "🟢 Purchase",
-                "Asset Class": "Common Stock",
-                "Description": "Fallback Data",
-                "Disclosed Range": "$1M+",
-                "midpoint_val": 750000,
-                "underlying_shares": 5000
-            }
-        ]
+        "holdings": [],
+        "trades": []
     },
     "Josh Gottheimer (D - House)": {
-        "holdings": [
-            {
-                "Ticker": "NVDA",
-                "Company": "NVDA (Dynamic)",
-                "Est. Cost Basis ($)": 100.0,
-                "Est. Value ($10k)": 1000,
-                "Est. Allocation (%)": 100.0
-            }
-        ],
-        "trades": [
-            {
-                "Filing Date": "2026-11-01",
-                "Trade Date": "2026-11-01",
-                "Ticker": "NVDA",
-                "Action": "🟢 Purchase",
-                "Asset Class": "Common Stock",
-                "Description": "Fallback Data",
-                "Disclosed Range": "$1M+",
-                "midpoint_val": 750000,
-                "underlying_shares": 5000
-            }
-        ]
+        "holdings": [],
+        "trades": []
     }
 }
