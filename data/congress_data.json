@@ -1,7 +1,67 @@
 {
     "Nancy Pelosi (D - House)": {
-        "holdings": [],
-        "trades": []
+        "holdings": [
+            {
+                "Ticker": "BE",
+                "Company": "BE",
+                "Cost Basis ($)": 172.69,
+                "Est. Value ($10k)": 3.0,
+                "Est. Allocation (%)": 50.0,
+                "Current Price ($)": 203.17,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "INTC",
+                "Company": "INTC",
+                "Cost Basis ($)": 55.9,
+                "Est. Value ($10k)": 3.0,
+                "Est. Allocation (%)": 50.0,
+                "Current Price ($)": 65.76,
+                "Est. ROI (%)": 17.5
+            }
+        ],
+        "trades": [
+            {
+                "Filing Date": "2026-08-21",
+                "Trade Date": "2026-07-28",
+                "Ticker": "BE",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for BE",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-21",
+                "Trade Date": "2026-07-24",
+                "Ticker": "INTC",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for INTC",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-21",
+                "Trade Date": "2026-07-24",
+                "Ticker": "INTC",
+                "Action": "🟢 Purchase",
+                "Asset Class": "OP",
+                "Description": "Disclosed transaction for INTC",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-21",
+                "Trade Date": "2026-07-24",
+                "Ticker": "BE",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for BE",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            }
+        ]
     },
     "Tommy Tuberville (R - Senate)": {
         "holdings": [],
@@ -9,14 +69,337 @@
     },
     "Mark Green (R - House)": {
         "holdings": [],
-        "trades": []
+        "trades": [
+            {
+                "Filing Date": "2026-09-22",
+                "Trade Date": "2024-07-29",
+                "Ticker": "GRBK",
+                "Action": "🔴 Sale",
+                "Asset Class": "None",
+                "Description": "Disclosed transaction for GRBK",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            }
+        ]
     },
     "Dan Crenshaw (R - House)": {
         "holdings": [],
         "trades": []
     },
     "Josh Gottheimer (D - House)": {
-        "holdings": [],
-        "trades": []
+        "holdings": [
+            {
+                "Ticker": "GOOGN",
+                "Company": "GOOGN",
+                "Cost Basis ($)": 35.18,
+                "Est. Value ($10k)": 3.0,
+                "Est. Allocation (%)": 18.18,
+                "Current Price ($)": 41.39,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "MCD",
+                "Company": "MCD",
+                "Cost Basis ($)": 219.4,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 9.09,
+                "Current Price ($)": 258.12,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "QSR",
+                "Company": "QSR",
+                "Cost Basis ($)": 61.55,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 9.09,
+                "Current Price ($)": 72.41,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "RSG",
+                "Company": "RSG",
+                "Cost Basis ($)": 207.43,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 9.09,
+                "Current Price ($)": 244.04,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "GOOGM",
+                "Company": "GOOGM",
+                "Cost Basis ($)": 35.1,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 9.09,
+                "Current Price ($)": 41.29,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "SAIL",
+                "Company": "SAIL",
+                "Cost Basis ($)": 17.9,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 9.09,
+                "Current Price ($)": 21.06,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "NICE",
+                "Company": "NICE",
+                "Cost Basis ($)": 96.7,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 9.09,
+                "Current Price ($)": 113.76,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "MNST",
+                "Company": "MNST",
+                "Cost Basis ($)": 40.24,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 9.09,
+                "Current Price ($)": 47.34,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "PANW",
+                "Company": "PANW",
+                "Cost Basis ($)": 310.99,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 9.09,
+                "Current Price ($)": 365.87,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "CRWD",
+                "Company": "CRWD",
+                "Cost Basis ($)": 212.87,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 9.09,
+                "Current Price ($)": 250.43,
+                "Est. ROI (%)": 17.5
+            }
+        ],
+        "trades": [
+            {
+                "Filing Date": "2026-10-07",
+                "Trade Date": "2026-09-25",
+                "Ticker": "MCD",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for MCD",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-10-07",
+                "Trade Date": "2026-09-15",
+                "Ticker": "AMAT",
+                "Action": "🔴 Sale",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for AMAT",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-14",
+                "Trade Date": "2026-08-14",
+                "Ticker": "MSFT",
+                "Action": "🔴 Sale",
+                "Asset Class": "OP",
+                "Description": "Disclosed transaction for MSFT",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-14",
+                "Trade Date": "2026-08-14",
+                "Ticker": "MSFT",
+                "Action": "🔴 Sale",
+                "Asset Class": "OP",
+                "Description": "Disclosed transaction for MSFT",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-14",
+                "Trade Date": "2026-08-14",
+                "Ticker": "MSFT",
+                "Action": "🟢 Purchase",
+                "Asset Class": "OP",
+                "Description": "Disclosed transaction for MSFT",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-14",
+                "Trade Date": "2026-08-14",
+                "Ticker": "MSFT",
+                "Action": "🟢 Purchase",
+                "Asset Class": "OP",
+                "Description": "Disclosed transaction for MSFT",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-14",
+                "Trade Date": "2026-08-06",
+                "Ticker": "QSR",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for QSR",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-14",
+                "Trade Date": "2026-08-06",
+                "Ticker": "RSG",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for RSG",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-14",
+                "Trade Date": "2026-08-06",
+                "Ticker": "AMAT",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for AMAT",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-10",
+                "Trade Date": "2026-07-24",
+                "Ticker": "GOOGN",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for GOOGN",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-10",
+                "Trade Date": "2026-07-24",
+                "Ticker": "GOOGM",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for GOOGM",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-10",
+                "Trade Date": "2026-07-23",
+                "Ticker": "CCI",
+                "Action": "🔴 Sale",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for CCI",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-10",
+                "Trade Date": "2026-07-23",
+                "Ticker": "GOOGN",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for GOOGN",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-10",
+                "Trade Date": "2026-07-20",
+                "Ticker": "SAIL",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for SAIL",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-10",
+                "Trade Date": "2026-07-20",
+                "Ticker": "NICE",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for NICE",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-10",
+                "Trade Date": "2026-07-17",
+                "Ticker": "MNST",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for MNST",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-10",
+                "Trade Date": "2026-07-17",
+                "Ticker": "GTLS",
+                "Action": "🔴 Sale",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for GTLS",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-10",
+                "Trade Date": "2026-07-16",
+                "Ticker": "PANW",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for PANW",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-10",
+                "Trade Date": "2026-07-16",
+                "Ticker": "IBM",
+                "Action": "🔴 Sale",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for IBM",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-10",
+                "Trade Date": "2026-07-15",
+                "Ticker": "IBM",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for IBM",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-10",
+                "Trade Date": "2026-07-15",
+                "Ticker": "CRWD",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for CRWD",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-10",
+                "Trade Date": "2026-07-14",
+                "Ticker": "FN",
+                "Action": "🔴 Sale",
+                "Asset Class": "ST",
+                "Description": "Disclosed transaction for FN",
+                "Disclosed Range": "$1,001 - $15,000",
+                "midpoint_val": 15000
+            }
+        ]
     }
 }
