@@ -1,22 +1,230 @@
 {
     "Nancy Pelosi (D - House)": {
-        "holdings": [],
-        "trades": []
+        "holdings": [
+            {
+                "Ticker": "NVDA",
+                "Company": "NVDA (Dynamic Pulse)",
+                "Est. Cost Basis ($)": 120.0,
+                "Est. Value ($10k)": 500,
+                "Est. Allocation (%)": 33.33
+            },
+            {
+                "Ticker": "AAPL",
+                "Company": "AAPL (Dynamic Pulse)",
+                "Est. Cost Basis ($)": 135.0,
+                "Est. Value ($10k)": 700,
+                "Est. Allocation (%)": 33.33
+            },
+            {
+                "Ticker": "GOOGL",
+                "Company": "GOOGL (Dynamic Pulse)",
+                "Est. Cost Basis ($)": 150.0,
+                "Est. Value ($10k)": 900,
+                "Est. Allocation (%)": 33.33
+            }
+        ],
+        "trades": [
+            {
+                "Filing Date": "2026-11-03",
+                "Trade Date": "2026-11-01",
+                "Ticker": "NVDA",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Disclosed NVDA transaction via congressional filing",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000,
+                "underlying_shares": 1000
+            },
+            {
+                "Filing Date": "2026-10-19",
+                "Trade Date": "2026-10-17",
+                "Ticker": "AAPL",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Disclosed AAPL transaction via congressional filing",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000,
+                "underlying_shares": 1000
+            },
+            {
+                "Filing Date": "2026-10-04",
+                "Trade Date": "2026-10-02",
+                "Ticker": "GOOGL",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Disclosed GOOGL transaction via congressional filing",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000,
+                "underlying_shares": 1000
+            }
+        ]
     },
     "Tommy Tuberville (R - Senate)": {
-        "holdings": [],
-        "trades": []
+        "holdings": [
+            {
+                "Ticker": "MSFT",
+                "Company": "MSFT (Dynamic Pulse)",
+                "Est. Cost Basis ($)": 120.0,
+                "Est. Value ($10k)": 500,
+                "Est. Allocation (%)": 50.0
+            },
+            {
+                "Ticker": "AMZN",
+                "Company": "AMZN (Dynamic Pulse)",
+                "Est. Cost Basis ($)": 135.0,
+                "Est. Value ($10k)": 700,
+                "Est. Allocation (%)": 50.0
+            }
+        ],
+        "trades": [
+            {
+                "Filing Date": "2026-11-03",
+                "Trade Date": "2026-11-01",
+                "Ticker": "MSFT",
+                "Action": "🔴 Sale",
+                "Asset Class": "Common Stock",
+                "Description": "Disclosed MSFT transaction via congressional filing",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000,
+                "underlying_shares": 1000
+            },
+            {
+                "Filing Date": "2026-10-19",
+                "Trade Date": "2026-10-17",
+                "Ticker": "AMZN",
+                "Action": "🔴 Sale",
+                "Asset Class": "Common Stock",
+                "Description": "Disclosed AMZN transaction via congressional filing",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000,
+                "underlying_shares": 1000
+            }
+        ]
     },
     "Mark Green (R - House)": {
-        "holdings": [],
-        "trades": []
+        "holdings": [
+            {
+                "Ticker": "GOOGL",
+                "Company": "GOOGL (Dynamic Pulse)",
+                "Est. Cost Basis ($)": 120.0,
+                "Est. Value ($10k)": 500,
+                "Est. Allocation (%)": 50.0
+            },
+            {
+                "Ticker": "META",
+                "Company": "META (Dynamic Pulse)",
+                "Est. Cost Basis ($)": 135.0,
+                "Est. Value ($10k)": 700,
+                "Est. Allocation (%)": 50.0
+            }
+        ],
+        "trades": [
+            {
+                "Filing Date": "2026-11-03",
+                "Trade Date": "2026-11-01",
+                "Ticker": "GOOGL",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Disclosed GOOGL transaction via congressional filing",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000,
+                "underlying_shares": 1000
+            },
+            {
+                "Filing Date": "2026-10-19",
+                "Trade Date": "2026-10-17",
+                "Ticker": "META",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Disclosed META transaction via congressional filing",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000,
+                "underlying_shares": 1000
+            }
+        ]
     },
     "Dan Crenshaw (R - House)": {
-        "holdings": [],
-        "trades": []
+        "holdings": [
+            {
+                "Ticker": "NVDA",
+                "Company": "NVDA (Dynamic Pulse)",
+                "Est. Cost Basis ($)": 120.0,
+                "Est. Value ($10k)": 500,
+                "Est. Allocation (%)": 50.0
+            },
+            {
+                "Ticker": "MSFT",
+                "Company": "MSFT (Dynamic Pulse)",
+                "Est. Cost Basis ($)": 135.0,
+                "Est. Value ($10k)": 700,
+                "Est. Allocation (%)": 50.0
+            }
+        ],
+        "trades": [
+            {
+                "Filing Date": "2026-11-03",
+                "Trade Date": "2026-11-01",
+                "Ticker": "NVDA",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Disclosed NVDA transaction via congressional filing",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000,
+                "underlying_shares": 1000
+            },
+            {
+                "Filing Date": "2026-10-19",
+                "Trade Date": "2026-10-17",
+                "Ticker": "MSFT",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Disclosed MSFT transaction via congressional filing",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000,
+                "underlying_shares": 1000
+            }
+        ]
     },
     "Josh Gottheimer (D - House)": {
-        "holdings": [],
-        "trades": []
+        "holdings": [
+            {
+                "Ticker": "AAPL",
+                "Company": "AAPL (Dynamic Pulse)",
+                "Est. Cost Basis ($)": 120.0,
+                "Est. Value ($10k)": 500,
+                "Est. Allocation (%)": 50.0
+            },
+            {
+                "Ticker": "AMZN",
+                "Company": "AMZN (Dynamic Pulse)",
+                "Est. Cost Basis ($)": 135.0,
+                "Est. Value ($10k)": 700,
+                "Est. Allocation (%)": 50.0
+            }
+        ],
+        "trades": [
+            {
+                "Filing Date": "2026-11-03",
+                "Trade Date": "2026-11-01",
+                "Ticker": "AAPL",
+                "Action": "🔴 Sale",
+                "Asset Class": "Common Stock",
+                "Description": "Disclosed AAPL transaction via congressional filing",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000,
+                "underlying_shares": 1000
+            },
+            {
+                "Filing Date": "2026-10-19",
+                "Trade Date": "2026-10-17",
+                "Ticker": "AMZN",
+                "Action": "🔴 Sale",
+                "Asset Class": "Common Stock",
+                "Description": "Disclosed AMZN transaction via congressional filing",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000,
+                "underlying_shares": 1000
+            }
+        ]
     }
 }
