@@ -35,7 +35,7 @@ def extract_best_description(row):
 
 def fetch_real_congress_data():
     print("========================================")
-    print("🔍 正在全量加载所有国会交易与资产信息（不做任何筛选）...")
+    print("🔍 正在全量加载所有国会交易与资产信息（多条件精准模糊匹配）...")
     print("========================================")
     
     url = "https://raw.githubusercontent.com/kadoa-org/congress-trading-monitor/main/public/data/trades.json"
@@ -50,11 +50,12 @@ def fetch_real_congress_data():
     except Exception as e:
         print(f"❌ 请求异常: {e}")
 
+    # 使用更宽泛、精准的姓氏关键词映射，确保不漏掉任何一个人
     target_politicians = {
         "Nancy Pelosi (D - House)": ["pelosi"],
-        "Tommy Tuberville (R - Senate)": ["tuberville"],
+        "Tommy Tuberville (R - Senate)": ["tuberville", "tommy"],
         "Mark Green (R - House)": ["mark green", "green"],
-        "Dan Crenshaw (R - House)": ["crenshaw"],
+        "Dan Crenshaw (R - House)": ["crenshaw", "dan crenshaw"],
         "Josh Gottheimer (D - House)": ["gottheimer"],
     }
 
@@ -67,9 +68,10 @@ def fetch_real_congress_data():
             for row in raw_trades:
                 if not isinstance(row, dict):
                     continue
+                # 将整行所有字段的值拼成一个小写字符串
                 row_str = " ".join([str(val) for val in row.values() if val is not None]).lower()
                 
-                # 只要匹配到该政治人物，全量收录其所有交易
+                # 只要匹配到该政治人物的任何一个关键词
                 if any(kw in row_str for kw in keywords):
                     ticker = str(row.get('ticker') or row.get('Symbol') or row.get('asset_ticker') or '-').strip().upper()
                     if not ticker or ticker in ['NONE', 'nan', '--']:
@@ -107,7 +109,7 @@ def fetch_real_congress_data():
 
         print(f"👉 政治人物 [{member_name}] 全量收录交易记录数: {len(member_trades)}")
 
-        # 持仓聚合（对所有有效股票标的进行累加）
+        # 持仓聚合
         net_inv = {}
         for t in member_trades:
             tkr = t["Ticker"]
@@ -117,7 +119,7 @@ def fetch_real_congress_data():
         holdings = []
         total_val = 0
         for tkr, val in net_inv.items():
-            if abs(val) > 100: # 不做任何高门槛过滤，保留所有累加资产
+            if abs(val) > 100:
                 if tkr not in price_cache:
                     try:
                         p = yf.Ticker(tkr).history(period="1d")["Close"].iloc[-1]
