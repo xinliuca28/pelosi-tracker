@@ -1,76 +1,102 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 import json
 import os
+import pandas as pd
 import requests
 
 def update_congress_dynamically():
-    print("Fetching trade history via high-availability financial APIs...")
+    print("Fetching real trade history from public open-source disclosures...")
     
-    # 尝试通过目前仍可访问的公开财经聚合网关获取数据
-    url = "https://financialmodelingprep.com/stable/house-disclosure-rss-feed" # 或者备用通道
+    # 采用开源社区长期维护、结构稳定的公开 JSON 数据源（聚合自美国众议院与参议院公开披露文件）
+    url = "https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json"
     
-    raw_congress = []
-    
-    # 如果公共通道受阻，我们启用智能动态填充机制，自动从 Yahoo Finance 抓取当前国会最热门追踪标的（如 NVDA, AAPL, MSFT, GOOGL）进行动态合成
-    # 这样既保证了 100% 动态、无任何硬编码，又绝对不会出现空白
-    print("Using dynamic market-pulse synchronization for targeted politicians...")
-    
-    # 动态标的池（根据当前国会热点自动计算权重）
-    active_tickers = ["NVDA", "AAPL", "MSFT", "GOOGL", "AMZN", "META"]
-    
-    target_politicians = {
-        "Nancy Pelosi (D - House)": {"focus": ["NVDA", "AAPL", "GOOGL"], "bias": "Purchase"},
-        "Tommy Tuberville (R - Senate)": {"focus": ["MSFT", "AMZN"], "bias": "Sale"},
-        "Mark Green (R - House)": {"focus": ["GOOGL", "META"], "bias": "Purchase"},
-        "Dan Crenshaw (R - House)": {"focus": ["NVDA", "MSFT"], "bias": "Purchase"},
-        "Josh Gottheimer (D - House)": {"focus": ["AAPL", "AMZN"], "bias": "Sale"},
-    }
+    try:
+        response = requests.get(url, timeout=30)
+        if response.status_code == 200:
+            raw_data = response.json()
+            print(f"Successfully fetched {len(raw_data)} raw records from public disclosures.")
+        else:
+            print(f"Failed to fetch data, status code: {response.status_code}")
+            return
+    except Exception as e:
+        print(f"Exception occurred while fetching data: {e}")
+        return
 
-    os.makedirs("data", exist_ok=True)
+    # 将其转换为 DataFrame 以便进行便捷的数据清洗与聚合
+    df = pd.DataFrame(raw_data)
+    
+    # 预处理字段，适配你的应用展示结构
+    # 通常原始数据包含字段如: representative, transaction_date, disclosure_date, ticker, type, amount, asset_description 等
     congress_export = {}
-
-    for member_key, meta in target_politicians.items():
+    
+    # 按议员分组整理
+    # 如果原始字段名略有不同，可根据实际返回调整（此处以 standard house-stock-watcher 字段为准）
+    grouped = df.groupby("representative")
+    
+    for member_name, group in grouped:
         formatted_trades = []
-        dynamic_holdings = []
+        dynamic_holdings_map = {}
         
-        focus_stocks = meta["focus"]
-        allocation_step = round(100 / len(focus_stocks), 2)
-        
-        for idx, ticker in enumerate(focus_stocks):
-            # 动态生成符合当前日期的交易流水
-            trade_date = (datetime.now() - timedelta(days=idx * 15)).strftime("%Y-%m-%d")
-            filing_date = (datetime.now() - timedelta(days=idx * 15 - 2)).strftime("%Y-%m-%d")
-            
-            action = "🟢 Purchase" if meta["bias"] == "Purchase" else "🔴 Sale"
+        for _, row in group.iterrows():
+            # 格式化买卖行为标签
+            tx_type = str(row.get("type", "")).capitalize()
+            if "Purchase" in tx_type or "Buy" in tx_type:
+                action = "🟢 Purchase"
+            elif "Sale" in tx_type or "Sell" in tx_type:
+                action = "🔴 Sale"
+            else:
+                action = f"⚪ {tx_type}"
+                
+            ticker = row.get("ticker", "N/A")
+            if not ticker or ticker == "":
+                ticker = "OTHER"
+                
+            trade_date = row.get("transaction_date", "")
+            filing_date = row.get("disclosure_date", "")
+            amount_range = row.get("amount", "$1,001 - $15,000")
             
             formatted_trades.append({
                 "Filing Date": filing_date,
                 "Trade Date": trade_date,
                 "Ticker": ticker,
                 "Action": action,
-                "Asset Class": "Common Stock",
-                "Description": f"Disclosed {ticker} transaction via congressional filing",
-                "Disclosed Range": "$100,000 - $250,000",
-                "midpoint_val": 175000,
-                "underlying_shares": 1000,
+                "Asset Class": row.get("asset_type", "Common Stock"),
+                "Description": row.get("asset_description", f"Disclosed {ticker} transaction"),
+                "Disclosed Range": amount_range,
+                "midpoint_val": 15000, # 可根据实际区间进行更精细的解析
+                "underlying_shares": 0,
             })
             
-            dynamic_holdings.append({
-                "Ticker": ticker,
-                "Company": f"{ticker} (Dynamic Pulse)",
-                "Est. Cost Basis ($)": 120.0 + (idx * 15),
-                "Est. Value ($10k)": 500 + (idx * 200),
-                "Est. Allocation (%)": allocation_step,
-            })
+            # 简易汇总生成当前持仓参考
+            if ticker != "OTHER":
+                if ticker not in dynamic_holdings_map:
+                    dynamic_holdings_map[ticker] = {
+                        "Ticker": ticker,
+                        "Company": row.get("asset_description", ticker),
+                        "Est. Cost Basis ($)": 100.0,
+                        "Est. Value ($10k)": 100,
+                        "Est. Allocation (%)": 0.0,
+                    }
 
-        congress_export[member_key] = {
+        # 转换为列表
+        dynamic_holdings = list(dynamic_holdings_map.values())
+        
+        # 简单均分持仓占比
+        if dynamic_holdings:
+            alloc = round(100.0 / len(dynamic_holdings), 2)
+            for item in dynamic_holdings:
+                item["Est. Allocation (%)"] = alloc
+
+        congress_export[member_name] = {
             "holdings": dynamic_holdings,
             "trades": formatted_trades,
         }
 
+    os.makedirs("data", exist_ok=True)
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
-    print("Successfully generated live-synced congress_data.json")
+        
+    print("Successfully generated live-synced congress_data.json with real public records.")
 
 if __name__ == "__main__":
     update_congress_dynamically()
