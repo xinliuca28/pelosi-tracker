@@ -1,13 +1,22 @@
 {
-    "Notice": {
+    "Nancy Pelosi (D - House)": {
         "holdings": [],
-        "trades": [
-            {
-                "Ticker": "N/A",
-                "Action": "Data API Blocked (403)",
-                "Filing Date": "N/A",
-                "Trade Date": "N/A"
-            }
-        ]
+        "trades": []
+    },
+    "Tommy Tuberville (R - Senate)": {
+        "holdings": [],
+        "trades": []
+    },
+    "Mark Green (R - House)": {
+        "holdings": [],
+        "trades": []
+    },
+    "Dan Crenshaw (R - House)": {
+        "holdings": [],
+        "trades": []
+    },
+    "Josh Gottheimer (D - House)": {
+        "holdings": [],
+        "trades": []
     }
 }
