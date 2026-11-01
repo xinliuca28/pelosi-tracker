@@ -1,13 +1,14 @@
+from datetime import datetime, timedelta
 import json
 import os
 import requests
 
 
 def fetch_congress_data():
-  print("Fetching Congressional trades from open API...")
+  print("Fetching full Congressional trades history from open API...")
   url = "https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json"
   try:
-    res = requests.get(url, timeout=15)
+    res = requests.get(url, timeout=20)
     if res.status_code == 200:
       return res.json()
   except Exception as e:
@@ -18,31 +19,8 @@ def fetch_congress_data():
 def update_all_trackers():
   raw_congress = fetch_congress_data()
 
-  # 你的默认兜底数据（防止外部 API 字段变动或匹配不上时页面空白）
-  default_pelosi_trades = [
-      {
-          "Filing Date": "2026-10-02",
-          "Trade Date": "2026-09-08",
-          "Ticker": "REOF",
-          "Action": "🟢 Purchase",
-          "Asset Class": "LLC Real Estate",
-          "Description": "REOF XXX Commercial Property",
-          "Disclosed Range": "$500k - $1M",
-          "midpoint_val": 750000,
-          "underlying_shares": None,
-      },
-      {
-          "Filing Date": "2026-08-21",
-          "Trade Date": "2026-07-28",
-          "Ticker": "BE",
-          "Action": "🟢 Purchase",
-          "Asset Class": "Call Option",
-          "Description": "100 Calls · $100 Strike (Exp 06/17/27)",
-          "Disclosed Range": "$500k - $1M",
-          "midpoint_val": 750000,
-          "underlying_shares": 10000,
-      },
-  ]
+  # 设定时间过滤：只保留最近 5 年内（从 5 年前的今天开始）的交易记录
+  five_years_ago = datetime.now() - timedelta(days=365 * 5)
 
   target_politicians = {
       "Nancy Pelosi (D - House)": "Nancy Pelosi",
@@ -56,11 +34,18 @@ def update_all_trackers():
   database_export = {}
 
   for member_key, search_name in target_politicians.items():
-    member_trades = [
-        t
-        for t in raw_congress
-        if search_name.lower() in t.get("representative", "").lower()
-    ]
+    # 筛选出属于该议员且在近 5 年内的交易
+    member_trades = []
+    for t in raw_congress:
+      if search_name.lower() in t.get("representative", "").lower():
+        trade_date_str = t.get("transaction_date") or t.get("disclosure_date")
+        if trade_date_str:
+          try:
+            trade_date = datetime.strptime(trade_date_str, "%Y-%m-%d")
+            if trade_date >= five_years_ago:
+              member_trades.append(t)
+          except ValueError:
+            pass
 
     formatted_trades = []
     for t in member_trades:
@@ -80,16 +65,11 @@ def update_all_trackers():
           "underlying_shares": 5000,
       })
 
-    # 如果从 API 成功找到了数据就用外部的，如果没找到则自动使用兜底数据保证页面正常显示
-    if formatted_trades:
-      database_export[member_key] = formatted_trades
-    else:
-      if member_key == "Nancy Pelosi (D - House)":
-        database_export[member_key] = default_pelosi_trades
-      else:
-        database_export[member_key] = default_pelosi_trades  # 其他议员也给与兜底
+    # 按申报日期降序排列（最新的显示在最前面）
+    formatted_trades.sort(key=lambda x: x["Filing Date"] or "", reverse=True)
+    database_export[member_key] = formatted_trades
 
-  # 巴菲特 13F 数据
+  # 巴菲特 (Warren Buffett) 13F 机构核心持仓数据
   database_export["Warren Buffett (Berkshire)"] = [
       {
           "Ticker": "AAPL",
@@ -114,9 +94,10 @@ def update_all_trackers():
       },
   ]
 
+  # 写入统一的 JSON 数据文件
   with open("data/trackers_data.json", "w", encoding="utf-8") as f:
     json.dump(database_export, f, indent=4, ensure_ascii=False)
-  print("Successfully updated and safeguarded all trackers data!")
+  print("Successfully updated 5-year historical trackers data!")
 
 
 if __name__ == "__main__":
