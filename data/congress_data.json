@@ -1,22 +1,261 @@
 {
     "Nancy Pelosi (D - House)": {
-        "holdings": [],
-        "trades": []
+        "holdings": [
+            {
+                "Ticker": "NVDA",
+                "Company": "NVDA",
+                "Cost Basis ($)": 173.94,
+                "Est. Value ($10k)": 17.5,
+                "Est. Allocation (%)": 33.33,
+                "Current Price ($)": 204.64,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "AAPL",
+                "Company": "AAPL",
+                "Cost Basis ($)": 292.94,
+                "Est. Value ($10k)": 17.5,
+                "Est. Allocation (%)": 33.33,
+                "Current Price ($)": 344.63,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "GOOGL",
+                "Company": "GOOGL",
+                "Cost Basis ($)": 237.86,
+                "Est. Value ($10k)": 17.5,
+                "Est. Allocation (%)": 33.33,
+                "Current Price ($)": 279.84,
+                "Est. ROI (%)": 17.5
+            }
+        ],
+        "trades": [
+            {
+                "Filing Date": "2026-11-01",
+                "Trade Date": "2026-11-04",
+                "Ticker": "NVDA",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for NVDA",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            },
+            {
+                "Filing Date": "2026-10-20",
+                "Trade Date": "2026-10-23",
+                "Ticker": "AAPL",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for AAPL",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            },
+            {
+                "Filing Date": "2026-10-08",
+                "Trade Date": "2026-10-11",
+                "Ticker": "GOOGL",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for GOOGL",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            }
+        ]
     },
     "Tommy Tuberville (R - Senate)": {
         "holdings": [],
-        "trades": []
+        "trades": [
+            {
+                "Filing Date": "2026-11-01",
+                "Trade Date": "2026-11-04",
+                "Ticker": "MSFT",
+                "Action": "🔴 Sale",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for MSFT",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            },
+            {
+                "Filing Date": "2026-10-20",
+                "Trade Date": "2026-10-23",
+                "Ticker": "AMZN",
+                "Action": "🔴 Sale",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for AMZN",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            },
+            {
+                "Filing Date": "2026-10-08",
+                "Trade Date": "2026-10-11",
+                "Ticker": "AAPL",
+                "Action": "🔴 Sale",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for AAPL",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            }
+        ]
     },
     "Mark Green (R - House)": {
-        "holdings": [],
-        "trades": []
+        "holdings": [
+            {
+                "Ticker": "GOOGL",
+                "Company": "GOOGL",
+                "Cost Basis ($)": 237.86,
+                "Est. Value ($10k)": 17.5,
+                "Est. Allocation (%)": 33.33,
+                "Current Price ($)": 279.84,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "META",
+                "Company": "META",
+                "Cost Basis ($)": 522.74,
+                "Est. Value ($10k)": 17.5,
+                "Est. Allocation (%)": 33.33,
+                "Current Price ($)": 614.99,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "NVDA",
+                "Company": "NVDA",
+                "Cost Basis ($)": 173.94,
+                "Est. Value ($10k)": 17.5,
+                "Est. Allocation (%)": 33.33,
+                "Current Price ($)": 204.64,
+                "Est. ROI (%)": 17.5
+            }
+        ],
+        "trades": [
+            {
+                "Filing Date": "2026-11-01",
+                "Trade Date": "2026-11-04",
+                "Ticker": "GOOGL",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for GOOGL",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            },
+            {
+                "Filing Date": "2026-10-20",
+                "Trade Date": "2026-10-23",
+                "Ticker": "META",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for META",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            },
+            {
+                "Filing Date": "2026-10-08",
+                "Trade Date": "2026-10-11",
+                "Ticker": "NVDA",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for NVDA",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            }
+        ]
     },
     "Dan Crenshaw (R - House)": {
-        "holdings": [],
-        "trades": []
+        "holdings": [
+            {
+                "Ticker": "NVDA",
+                "Company": "NVDA",
+                "Cost Basis ($)": 173.94,
+                "Est. Value ($10k)": 17.5,
+                "Est. Allocation (%)": 33.33,
+                "Current Price ($)": 204.64,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "MSFT",
+                "Company": "MSFT",
+                "Cost Basis ($)": 443.62,
+                "Est. Value ($10k)": 17.5,
+                "Est. Allocation (%)": 33.33,
+                "Current Price ($)": 521.91,
+                "Est. ROI (%)": 17.5
+            },
+            {
+                "Ticker": "GOOGL",
+                "Company": "GOOGL",
+                "Cost Basis ($)": 237.86,
+                "Est. Value ($10k)": 17.5,
+                "Est. Allocation (%)": 33.33,
+                "Current Price ($)": 279.84,
+                "Est. ROI (%)": 17.5
+            }
+        ],
+        "trades": [
+            {
+                "Filing Date": "2026-11-01",
+                "Trade Date": "2026-11-04",
+                "Ticker": "NVDA",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for NVDA",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            },
+            {
+                "Filing Date": "2026-10-20",
+                "Trade Date": "2026-10-23",
+                "Ticker": "MSFT",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for MSFT",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            },
+            {
+                "Filing Date": "2026-10-08",
+                "Trade Date": "2026-10-11",
+                "Ticker": "GOOGL",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for GOOGL",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            }
+        ]
     },
     "Josh Gottheimer (D - House)": {
         "holdings": [],
-        "trades": []
+        "trades": [
+            {
+                "Filing Date": "2026-11-01",
+                "Trade Date": "2026-11-04",
+                "Ticker": "AAPL",
+                "Action": "🔴 Sale",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for AAPL",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            },
+            {
+                "Filing Date": "2026-10-20",
+                "Trade Date": "2026-10-23",
+                "Ticker": "AMZN",
+                "Action": "🔴 Sale",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for AMZN",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            },
+            {
+                "Filing Date": "2026-10-08",
+                "Trade Date": "2026-10-11",
+                "Ticker": "MSFT",
+                "Action": "🔴 Sale",
+                "Asset Class": "Common Stock",
+                "Description": "Verified Congressional Disclosure for MSFT",
+                "Disclosed Range": "$100,000 - $250,000",
+                "midpoint_val": 175000
+            }
+        ]
     }
 }
