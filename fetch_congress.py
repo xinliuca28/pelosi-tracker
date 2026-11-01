@@ -6,7 +6,7 @@ import yfinance as yf
 from datetime import datetime
 
 def parse_amount_midpoint(row):
-    for key in ['amount', 'amount_min', 'amount_max', 'Disclosed Range']:
+    for key in ['amount', 'amount_min', 'amount_max', 'Disclosed Range', 'value']:
         val = row.get(key)
         if isinstance(val, (int, float)):
             return val
@@ -26,7 +26,7 @@ def parse_amount_midpoint(row):
 
 def fetch_real_congress_data():
     print("========================================")
-    print("🔍 开始测试并抓取真实国会交易数据源...")
+    print("🔍 正在抓取真实国会交易数据...")
     print("========================================")
     
     url = "https://raw.githubusercontent.com/kadoa-org/congress-trading-monitor/main/public/data/trades.json"
@@ -35,23 +35,13 @@ def fetch_real_congress_data():
     raw_trades = []
     
     try:
-        print(f"正在请求数据源: {url}")
-        resp = requests.get(url, headers=headers, timeout=30)
-        print(f"【诊断结果】HTTP 状态码: {resp.status_code}")
-        
+        resp = requests.get(url, headers=headers, timeout=40)
+        print(f"【诊断】HTTP 状态码: {resp.status_code}")
         if resp.status_code == 200:
-            text_snippet = resp.text[:150].strip()
-            print(f"【诊断结果】响应内容前 150 字符: {text_snippet}")
-            
-            if text_snippet.startswith('[') or text_snippet.startswith('{'):
-                raw_trades = resp.json()
-                print(f"✅【成功】成功解析真实数据，总记录数: {len(raw_trades)}")
-            else:
-                print("❌【失败】返回的内容不是合法的 JSON 格式（可能是 HTML 或重定向页面）。")
-        else:
-            print(f"❌【失败】数据源拒绝连接，状态码: {resp.status_code}")
+            raw_trades = resp.json()
+            print(f"✅ 成功获取原始记录数: {len(raw_trades)}")
     except Exception as e:
-        print(f"❌【异常】请求过程发生错误: {e}")
+        print(f"❌ 请求异常: {e}")
 
     df = pd.DataFrame(raw_trades)
     
@@ -59,7 +49,7 @@ def fetch_real_congress_data():
     target_politicians = {
         "Nancy Pelosi (D - House)": ["pelosi"],
         "Tommy Tuberville (R - Senate)": ["tuberville"],
-        "Mark Green (R - House)": ["green"],
+        "Mark Green (R - House)": ["mark green", "green"],
         "Dan Crenshaw (R - House)": ["crenshaw"],
         "Josh Gottheimer (D - House)": ["gottheimer"],
     }
@@ -70,24 +60,26 @@ def fetch_real_congress_data():
     for member_name, keywords in target_politicians.items():
         member_trades = []
         if not df.empty:
-            name_columns = [col for col in df.columns if any(k in col.lower() for k in ['name', 'politician', 'representative', 'senator'])]
-            
             for _, row in df.iterrows():
-                row_str = " ".join([str(row.get(col, "")) for col in name_columns]).lower()
+                # 将整行所有字段的值拼成一个小写字符串，实现全文本模糊匹配，避免漏掉任何列名
+                row_str = " ".join([str(val) for val in row.values() if val is not None]).lower()
+                
+                # 检查是否包含当前政客的名字
                 if any(kw in row_str for kw in keywords):
                     ticker = str(row.get('ticker') or row.get('Symbol') or row.get('asset_ticker') or '').strip().upper()
-                    if not ticker or ticker in ['N/A', '--', 'NONE']:
+                    if not ticker or ticker in ['N/A', '--', 'NONE', 'nan']:
                         continue
                         
-                    tx_type = str(row.get('type') or row.get('Transaction') or row.get('action') or '').capitalize()
-                    if any(b in tx_type.lower() for b in ['purchase', 'buy', 'p']):
+                    tx_type = str(row.get('type') or row.get('Transaction') or row.get('action') or row.get('transaction_type') or '').capitalize()
+                    if any(b in tx_type.lower() for b in ['purchase', 'buy', 'p', 'acquisition']):
                         action = "🟢 Purchase"
                         multiplier = 1
-                    elif any(s in tx_type.lower() for s in ['sale', 'sell', 's']):
+                    elif any(s in tx_type.lower() for s in ['sale', 'sell', 's', 'exchange']):
                         action = "🔴 Sale"
                         multiplier = -1
                     else:
-                        continue
+                        action = "🟢 Purchase" # 默认归类
+                        multiplier = 1
                         
                     filing_date = str(row.get('disclosure_date') or row.get('filing_date') or row.get('FilingDate') or '2026-01-01')
                     trade_date = str(row.get('transaction_date') or row.get('TradeDate') or filing_date)
@@ -99,16 +91,16 @@ def fetch_real_congress_data():
                         "Trade Date": trade_date[:10],
                         "Ticker": ticker,
                         "Action": action,
-                        "Asset Class": row.get('asset_type', 'Stock'),
-                        "Description": row.get('asset_description', f'Disclosed transaction for {ticker}'),
+                        "Asset Class": str(row.get('asset_type', 'Stock')),
+                        "Description": str(row.get('asset_description', f'Disclosed transaction for {ticker}')),
                         "Disclosed Range": amount_str,
                         "midpoint_val": midpoint,
                         "multiplier": multiplier
                     })
 
-        print(f"👉 政治人物 [{member_name}] 匹配到真实交易记录数: {len(member_trades)}")
+        print(f"👉 政治人物 [{member_name}] 成功匹配到真实交易记录数: {len(member_trades)}")
 
-        # 基于真实交易计算当前动态持仓
+        # 计算动态持仓
         net_inv = {}
         for t in member_trades:
             net_inv[t["Ticker"]] = net_inv.get(t["Ticker"], 0) + (t["midpoint_val"] * t["multiplier"])
@@ -154,7 +146,7 @@ def fetch_real_congress_data():
     os.makedirs("data", exist_ok=True)
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
-    print("✅ 数据同步脚本执行完毕。")
+    print("✅ 真实数据处理完毕并成功写入 congress_data.json。")
 
 if __name__ == "__main__":
     fetch_real_congress_data()
