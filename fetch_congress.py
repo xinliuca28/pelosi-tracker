@@ -4,7 +4,6 @@ import pandas as pd
 import requests
 import yfinance as yf
 from datetime import datetime
-import cloudscraper
 
 def parse_amount_midpoint(amount_str):
     """将披露的金额区间（如 $1,001 - $15,000）转换为中位数以便计算估值"""
@@ -19,60 +18,47 @@ def parse_amount_midpoint(amount_str):
     return 15000
 
 def fetch_real_congress_data():
-    print("Fetching REAL trade history...")
+    print("Fetching REAL trade history from GitHub raw mirrors (Zero-Blockage)...")
     
-    house_url = "https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json"
-    senate_url = "https://senate-stock-watcher-data.s3-us-west-2.amazonaws.com/aggregate/all_transactions.json"
+    # 使用 GitHub 官方 Raw 镜像源，完美绕过 AWS/Cloudflare 的云端机房拦截
+    house_url = "https://raw.githubusercontent.com/shufinskiy/house-stock-watcher-data/main/data/all_transactions.json"
+    senate_url = "https://raw.githubusercontent.com/shufinskiy/senate-stock-watcher-data/main/aggregate/all_transactions.json"
     
-    scraper = cloudscraper.create_scraper(browser={'browser': 'chrome', 'platform': 'windows', 'desktop': True})
     raw_trades = []
     
     # 1. 抓取众议院真实数据
     try:
-        print("Downloading House data...")
-        resp = scraper.get(house_url, timeout=60)
+        print("Downloading House real disclosures...")
+        resp = requests.get(house_url, timeout=30)
         if resp.status_code == 200:
             data = resp.json()
             for row in data:
                 row['Name'] = row.get('representative', '')
                 raw_trades.append(row)
-            print(f"✅ Downloaded {len(data)} real House trades.")
+            print(f"✅ Successfully loaded {len(data)} real House records.")
         else:
-            print(f"House data direct fetch blocked. Using proxy fallback...")
-            p_resp = requests.get(f"https://api.allorigins.win/raw?url={house_url}", timeout=60)
-            if p_resp.status_code == 200:
-                data = p_resp.json()
-                for row in data:
-                    row['Name'] = row.get('representative', '')
-                    raw_trades.append(row)
-                print(f"✅ Downloaded {len(data)} real House trades via proxy.")
+            print(f"House raw fetch status: {resp.status_code}")
     except Exception as e:
-        print(f"House data fetch failed: {e}")
+        print(f"House fetch exception: {e}")
 
     # 2. 抓取参议院真实数据
     try:
-        print("Downloading Senate data...")
-        resp = scraper.get(senate_url, timeout=60)
+        print("Downloading Senate real disclosures...")
+        resp = requests.get(senate_url, timeout=30)
         if resp.status_code == 200:
             data = resp.json()
             for row in data:
                 row['Name'] = row.get('senator', '')
                 raw_trades.append(row)
-            print(f"✅ Downloaded {len(data)} real Senate trades.")
+            print(f"✅ Successfully loaded {len(data)} real Senate records.")
         else:
-            print(f"Senate data direct fetch blocked. Using proxy fallback...")
-            p_resp = requests.get(f"https://api.allorigins.win/raw?url={senate_url}", timeout=60)
-            if p_resp.status_code == 200:
-                data = p_resp.json()
-                for row in data:
-                    row['Name'] = row.get('senator', '')
-                    raw_trades.append(row)
-                print(f"✅ Downloaded {len(data)} real Senate trades via proxy.")
+            print(f"Senate raw fetch status: {resp.status_code}")
     except Exception as e:
-        print(f"Senate data fetch failed: {e}")
+        print(f"Senate fetch exception: {e}")
 
     df = pd.DataFrame(raw_trades)
     
+    # 你关注的 5 位核心政要姓名映射
     target_mapping = {
         "Pelosi": "Nancy Pelosi (D - House)",
         "Tuberville": "Tommy Tuberville (R - Senate)",
@@ -121,7 +107,6 @@ def fetch_real_congress_data():
                     "Description": row.get("asset_description", f"Disclosed {ticker}"),
                     "Disclosed Range": amount_str,
                     "midpoint_val": midpoint,
-                    "underlying_shares": 0,
                     "multiplier": multiplier 
                 })
 
@@ -177,7 +162,7 @@ def fetch_real_congress_data():
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
         
-    print("✅ Successfully generated REAL congress_data.json with 5-year history and calculated holdings.")
+    print("✅ Successfully generated REAL congress_data.json using GitHub Raw mirrors.")
 
 if __name__ == "__main__":
     fetch_real_congress_data()
