@@ -1,0 +1,49 @@
+{
+    "holdings": [
+        {
+            "Ticker": "AAPL",
+            "Company": "Apple",
+            "Est. Cost Basis ($)": 35.0,
+            "Est. Value ($10k)": 842480,
+            "Est. Allocation (%)": 35.0
+        },
+        {
+            "Ticker": "GOOGL",
+            "Company": "Alphabet (Google)",
+            "Est. Cost Basis ($)": 140.0,
+            "Est. Value ($10k)": 250000,
+            "Est. Allocation (%)": 10.4
+        },
+        {
+            "Ticker": "BAC",
+            "Company": "Bank of America",
+            "Est. Cost Basis ($)": 24.0,
+            "Est. Value ($10k)": 411200,
+            "Est. Allocation (%)": 9.5
+        }
+    ],
+    "trades": [
+        {
+            "Filing Date": "2026-08-14",
+            "Trade Date": "2026-06-30",
+            "Ticker": "AAPL",
+            "Action": "🔴 Sale",
+            "Asset Class": "SEC Form 13F",
+            "Description": "Q2 Institutional Trimmed Position",
+            "Disclosed Range": "$1B+",
+            "midpoint_val": 500000000,
+            "underlying_shares": 10000000
+        },
+        {
+            "Filing Date": "2026-08-14",
+            "Trade Date": "2026-06-30",
+            "Ticker": "GOOGL",
+            "Action": "🟢 Purchase",
+            "Asset Class": "SEC Form 13F",
+            "Description": "Q2 Institutional Initiated Position",
+            "Disclosed Range": "$500M - $1B",
+            "midpoint_val": 750000000,
+            "underlying_shares": 5000000
+        }
+    ]
+}
