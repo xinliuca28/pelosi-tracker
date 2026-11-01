@@ -70,7 +70,7 @@ st.sidebar.markdown(f"**Party & Chamber**: {member_info['party']} - {member_info
 st.sidebar.markdown(f"**Focus**: {member_info['focus']}")
 
 # ------------------------------------
-# 4. 实时计算与可视化层 (基于纯 API 数据)
+# 4. 实时计算与可视化层
 # ------------------------------------
 st.title(f"🏛️ {selected_member_name.split(' (')[0]} Tracker")
 
@@ -87,9 +87,9 @@ if not df_holdings.empty and "Ticker" in df_holdings.columns:
             
             df_holdings["Current Price ($)"] = df_holdings["Ticker"].map(lambda t: round(prices.get(t, 0.0), 2))
             
-            # 计算 ROI
-            if "Est. Cost Basis ($)" in df_holdings.columns:
-                df_holdings["Est. ROI (%)"] = (((df_holdings["Current Price ($)"] - df_holdings["Est. Cost Basis ($)"]) / df_holdings["Est. Cost Basis ($)"]) * 100).round(2)
+            # 计算 ROI (已对齐新版数据字段 "Cost Basis ($)")
+            if "Cost Basis ($)" in df_holdings.columns:
+                df_holdings["Est. ROI (%)"] = (((df_holdings["Current Price ($)"] - df_holdings["Cost Basis ($)"]) / df_holdings["Cost Basis ($)"]) * 100).round(2)
         except Exception as e:
             st.warning("Could not fetch real-time prices at this moment.")
 
@@ -115,9 +115,9 @@ if not df_holdings.empty and "Ticker" in df_holdings.columns:
     st.markdown("### 1. Dynamic Holdings (Aggregated from 5-Yr History)")
     st.dataframe(df_holdings, use_container_width=True, hide_index=True, 
                  column_config={
-                     "Est. Value ($10k)": st.column_config.NumberColumn("Est. Value ($10k)", format="$%d0k"),
+                     "Est. Value ($10k)": st.column_config.NumberColumn("Est. Value ($10k)", format="$%.2f k"),
                      "Est. Allocation (%)": st.column_config.NumberColumn("Allocation (%)", format="%.1f%%"),
-                     "Est. Cost Basis ($)": st.column_config.NumberColumn("Cost Basis ($)", format="$%.2f"),
+                     "Cost Basis ($)": st.column_config.NumberColumn("Cost Basis ($)", format="$%.2f"),
                      "Current Price ($)": st.column_config.NumberColumn("Current Price ($)", format="$%.2f"),
                      "Est. ROI (%)": st.column_config.NumberColumn("Est. ROI (%)", format="%.2f%%"),
                  })
@@ -127,8 +127,8 @@ else:
 # ------------------------------------
 # 5. 渲染历史交易层
 # ------------------------------------
-st.markdown("### 2. Trade History (Direct from API)")
+st.markdown("### 2. Trade History (Direct from Public Disclosures)")
 if not df_options.empty:
     st.dataframe(df_options, use_container_width=True, hide_index=True, height=min(max(len(df_options) * 35 + 45, 150), 600))
 else:
-    st.info("No 5-year trade data available from API.")
+    st.info("No 5-year trade data available.")
