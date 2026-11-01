@@ -1,18 +1,17 @@
-name: Run Fetch All Trackers
+name: Sync All External Trackers
 
 on:
   schedule:
-    - cron: '0 8 * * *' # 每天北京时间下午 4 点（UTC 8点）自动运行一次
-  workflow_dispatch: # 允许你在网页端手动点击按钮立即运行
+    - cron: '0 8 * * *' # 每天自动运行一次
+  workflow_dispatch:
 
 jobs:
-  run-script:
+  sync-data:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # 赋予 GitHub 机器人自动提交并推送代码的权限
+      contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -24,14 +23,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests pandas
 
-      - name: Run fetch script
-        run: python fetch_all_trackers.py
+      - name: Run Congress 5-Year Fetcher
+        run: python fetch_congress.py
 
-      - name: Commit and push generated data
+      - name: Run Buffett 13F Fetcher
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }} # 如果使用 API Key 可在 GitHub Secrets 中配置
+        run: python fetch_buffett.py
+
+      - name: Commit and push data changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data/
-          # 检查是否有改动，有改动才提交，没有改动则直接跳过避免报错
-          git diff --staged --quiet || git commit -m "chore: auto-update trackers json data from api"
+          git diff --staged --quiet || git commit -m "chore: auto-update separated external tracker data"
           git push
