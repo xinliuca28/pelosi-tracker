@@ -35,7 +35,7 @@ def extract_best_description(row):
 
 def fetch_real_congress_data():
     print("========================================")
-    print("🔍 正在全量加载所有国会交易与资产信息（多条件精准模糊匹配）...")
+    print("🔍 正在全量加载国会交易数据（增强诊断模式）...")
     print("========================================")
     
     url = "https://raw.githubusercontent.com/kadoa-org/congress-trading-monitor/main/public/data/trades.json"
@@ -50,13 +50,13 @@ def fetch_real_congress_data():
     except Exception as e:
         print(f"❌ 请求异常: {e}")
 
-    # 使用更宽泛、精准的姓氏关键词映射，确保不漏掉任何一个人
+    # 更宽泛的姓氏与全称匹配
     target_politicians = {
         "Nancy Pelosi (D - House)": ["pelosi"],
-        "Tommy Tuberville (R - Senate)": ["tuberville", "tommy"],
-        "Mark Green (R - House)": ["mark green", "green"],
-        "Dan Crenshaw (R - House)": ["crenshaw", "dan crenshaw"],
-        "Josh Gottheimer (D - House)": ["gottheimer"],
+        "Tommy Tuberville (R - Senate)": ["tuberville", "tommy", "tubervil"],
+        "Mark Green (R - House)": ["green", "mark green"],
+        "Dan Crenshaw (R - House)": ["crenshaw", "dan"],
+        "Josh Gottheimer (D - House)": ["gottheimer", "josh"],
     }
 
     congress_export = {}
@@ -68,10 +68,8 @@ def fetch_real_congress_data():
             for row in raw_trades:
                 if not isinstance(row, dict):
                     continue
-                # 将整行所有字段的值拼成一个小写字符串
                 row_str = " ".join([str(val) for val in row.values() if val is not None]).lower()
                 
-                # 只要匹配到该政治人物的任何一个关键词
                 if any(kw in row_str for kw in keywords):
                     ticker = str(row.get('ticker') or row.get('Symbol') or row.get('asset_ticker') or '-').strip().upper()
                     if not ticker or ticker in ['NONE', 'nan', '--']:
@@ -108,6 +106,10 @@ def fetch_real_congress_data():
                     })
 
         print(f"👉 政治人物 [{member_name}] 全量收录交易记录数: {len(member_trades)}")
+
+        # 如果某人记录依然为0，打印提示帮助我们排查
+        if len(member_trades) == 0:
+            print(f"⚠️ 警告: 未能在数据集中检索到与 [{member_name}] 匹配的记录，请检查名字拼写。")
 
         # 持仓聚合
         net_inv = {}
@@ -157,7 +159,7 @@ def fetch_real_congress_data():
     os.makedirs("data", exist_ok=True)
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
-    print("✅ 全量无筛选数据处理完毕并成功写入 congress_data.json。")
+    print("✅ 数据处理完毕并成功写入 congress_data.json。")
 
 if __name__ == "__main__":
     fetch_real_congress_data()
