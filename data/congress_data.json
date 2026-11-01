@@ -8,7 +8,7 @@
                 "Est. Value ($10k)": 3.0,
                 "Est. Allocation (%)": 50.0,
                 "Current Price ($)": 203.17,
-                "Est. ROI (%)": 17.5
+                "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "INTC",
@@ -17,7 +17,7 @@
                 "Est. Value ($10k)": 3.0,
                 "Est. Allocation (%)": 50.0,
                 "Current Price ($)": 65.76,
-                "Est. ROI (%)": 17.5
+                "Est. ROI (%)": 18.5
             }
         ],
         "trades": [
@@ -88,15 +88,25 @@
         "trades": []
     },
     "Mark Green (R - House)": {
-        "holdings": [],
+        "holdings": [
+            {
+                "Ticker": "GRBK",
+                "Company": "GRBK",
+                "Cost Basis ($)": 51.73,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 100.0,
+                "Current Price ($)": 60.86,
+                "Est. ROI (%)": 18.5
+            }
+        ],
         "trades": [
             {
                 "Filing Date": "2026-10-08",
                 "Trade Date": "2026-08-31",
                 "Ticker": "-",
                 "Action": "🔴 Sale",
-                "Asset Class": "None",
-                "Description": "PURCHASED/SOLD ASSET (Stock) VIA PUBLIC DISCLOSURE",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR ASSET (Stock) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -106,7 +116,7 @@
                 "Ticker": "-",
                 "Action": "🟢 Purchase",
                 "Asset Class": "Non-Public Stock",
-                "Description": "PURCHASED/SOLD ASSET (Non-Public Stock) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR ASSET (Non-Public Stock) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -115,8 +125,8 @@
                 "Trade Date": "2026-06-05",
                 "Ticker": "-",
                 "Action": "🟢 Purchase",
-                "Asset Class": "None",
-                "Description": "PURCHASED/SOLD ASSET (Stock) VIA PUBLIC DISCLOSURE",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR ASSET (Stock) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -125,8 +135,8 @@
                 "Trade Date": "2024-07-29",
                 "Ticker": "GRBK",
                 "Action": "🔴 Sale",
-                "Asset Class": "None",
-                "Description": "PURCHASED/SOLD GRBK (Stock) VIA PUBLIC DISCLOSURE",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR GRBK (Stock) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -135,8 +145,8 @@
                 "Trade Date": "2024-07-29",
                 "Ticker": "-",
                 "Action": "🔴 Sale",
-                "Asset Class": "None",
-                "Description": "PURCHASED/SOLD ASSET (Stock) VIA PUBLIC DISCLOSURE",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR ASSET (Stock) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             }
@@ -153,90 +163,117 @@
                 "Company": "GOOGN",
                 "Cost Basis ($)": 35.18,
                 "Est. Value ($10k)": 3.0,
-                "Est. Allocation (%)": 18.18,
+                "Est. Allocation (%)": 14.29,
                 "Current Price ($)": 41.39,
-                "Est. ROI (%)": 17.5
+                "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "MCD",
                 "Company": "MCD",
                 "Cost Basis ($)": 219.4,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 9.09,
+                "Est. Allocation (%)": 7.14,
                 "Current Price ($)": 258.12,
-                "Est. ROI (%)": 17.5
+                "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "QSR",
                 "Company": "QSR",
                 "Cost Basis ($)": 61.55,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 9.09,
+                "Est. Allocation (%)": 7.14,
                 "Current Price ($)": 72.41,
-                "Est. ROI (%)": 17.5
+                "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "RSG",
                 "Company": "RSG",
                 "Cost Basis ($)": 207.43,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 9.09,
+                "Est. Allocation (%)": 7.14,
                 "Current Price ($)": 244.04,
-                "Est. ROI (%)": 17.5
+                "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "GOOGM",
                 "Company": "GOOGM",
                 "Cost Basis ($)": 35.1,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 9.09,
+                "Est. Allocation (%)": 7.14,
                 "Current Price ($)": 41.29,
-                "Est. ROI (%)": 17.5
+                "Est. ROI (%)": 18.5
+            },
+            {
+                "Ticker": "CCI",
+                "Company": "CCI",
+                "Cost Basis ($)": 75.39,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 7.14,
+                "Current Price ($)": 88.69,
+                "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "SAIL",
                 "Company": "SAIL",
                 "Cost Basis ($)": 17.9,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 9.09,
+                "Est. Allocation (%)": 7.14,
                 "Current Price ($)": 21.06,
-                "Est. ROI (%)": 17.5
+                "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "NICE",
                 "Company": "NICE",
                 "Cost Basis ($)": 96.7,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 9.09,
+                "Est. Allocation (%)": 7.14,
                 "Current Price ($)": 113.76,
-                "Est. ROI (%)": 17.5
+                "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "MNST",
                 "Company": "MNST",
                 "Cost Basis ($)": 40.24,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 9.09,
+                "Est. Allocation (%)": 7.14,
                 "Current Price ($)": 47.34,
-                "Est. ROI (%)": 17.5
+                "Est. ROI (%)": 18.5
+            },
+            {
+                "Ticker": "GTLS",
+                "Company": "GTLS",
+                "Cost Basis ($)": 127.5,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 7.14,
+                "Current Price ($)": 150.0,
+                "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "PANW",
                 "Company": "PANW",
                 "Cost Basis ($)": 310.99,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 9.09,
+                "Est. Allocation (%)": 7.14,
                 "Current Price ($)": 365.87,
-                "Est. ROI (%)": 17.5
+                "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "CRWD",
                 "Company": "CRWD",
                 "Cost Basis ($)": 212.87,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 9.09,
+                "Est. Allocation (%)": 7.14,
                 "Current Price ($)": 250.43,
-                "Est. ROI (%)": 17.5
+                "Est. ROI (%)": 18.5
+            },
+            {
+                "Ticker": "FN",
+                "Company": "FN",
+                "Cost Basis ($)": 278.2,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 7.14,
+                "Current Price ($)": 327.29,
+                "Est. ROI (%)": 18.5
             }
         ],
         "trades": [
@@ -246,7 +283,7 @@
                 "Ticker": "MCD",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD MCD (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR MCD (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -256,7 +293,7 @@
                 "Ticker": "AMAT",
                 "Action": "🔴 Sale",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD AMAT (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR AMAT (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -306,7 +343,7 @@
                 "Ticker": "QSR",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD QSR (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR QSR (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -316,7 +353,7 @@
                 "Ticker": "RSG",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD RSG (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR RSG (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -326,7 +363,7 @@
                 "Ticker": "AMAT",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD AMAT (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR AMAT (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -336,7 +373,7 @@
                 "Ticker": "GOOGN",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD GOOGN (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR GOOGN (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -346,7 +383,7 @@
                 "Ticker": "GOOGM",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD GOOGM (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR GOOGM (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -356,7 +393,7 @@
                 "Ticker": "CCI",
                 "Action": "🔴 Sale",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD CCI (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR CCI (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -366,7 +403,7 @@
                 "Ticker": "GOOGN",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD GOOGN (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR GOOGN (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -376,7 +413,7 @@
                 "Ticker": "SAIL",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD SAIL (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR SAIL (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -386,7 +423,7 @@
                 "Ticker": "NICE",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD NICE (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR NICE (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -396,7 +433,7 @@
                 "Ticker": "MNST",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD MNST (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR MNST (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -406,7 +443,7 @@
                 "Ticker": "GTLS",
                 "Action": "🔴 Sale",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD GTLS (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR GTLS (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -416,7 +453,7 @@
                 "Ticker": "PANW",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD PANW (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR PANW (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -426,7 +463,7 @@
                 "Ticker": "IBM",
                 "Action": "🔴 Sale",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD IBM (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR IBM (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -436,7 +473,7 @@
                 "Ticker": "IBM",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD IBM (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR IBM (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -446,7 +483,7 @@
                 "Ticker": "CRWD",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD CRWD (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR CRWD (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -456,7 +493,7 @@
                 "Ticker": "FN",
                 "Action": "🔴 Sale",
                 "Asset Class": "ST",
-                "Description": "PURCHASED/SOLD FN (ST) VIA PUBLIC DISCLOSURE",
+                "Description": "TRANSACTION FOR FN (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             }
