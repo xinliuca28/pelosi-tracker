@@ -15,10 +15,13 @@ def parse_flexible_date(date_str):
     return None
 
 def update_congress_dynamically():
-    print("Fetching trade history from stable open-source raw data endpoint...")
+    print("Fetching trade history from official public watcher APIs...")
     
-    # 采用目前稳定且永久公开的国会交易数据公开源
-    url = "https://raw.githubusercontent.com/fja05680/congressional-stock-watcher-data/main/data/all_transactions.json"
+    # 官方提供的稳定 API 端点
+    urls = [
+        "https://housestockwatcher.com/api/v1/transactions",
+        "https://senatestockwatcher.com/api/v1/transactions"
+    ]
 
     raw_congress = []
     headers = {
@@ -26,21 +29,20 @@ def update_congress_dynamically():
         'Accept': 'application/json'
     }
 
-    try:
-        res = requests.get(url, headers=headers, timeout=30)
-        if res.status_code == 200:
-            data = res.json()
-            if isinstance(data, list):
-                raw_congress = data
-            elif isinstance(data, dict):
-                for k, v in data.items():
-                    if isinstance(v, list):
-                        raw_congress.extend(v)
-            print(f"Success: Loaded {len(raw_congress)} records from open-source raw endpoint.")
-        else:
-            print(f"Failed to fetch raw endpoint, status: {res.status_code}")
-    except Exception as e:
-        print(f"Error fetching raw endpoint: {e}")
+    for url in urls:
+        try:
+            res = requests.get(url, headers=headers, timeout=30)
+            if res.status_code == 200:
+                data = res.json()
+                if isinstance(data, list):
+                    raw_congress.extend(data)
+                    print(f"Successfully loaded {len(data)} records from {url}")
+            else:
+                print(f"API endpoint {url} returned status: {res.status_code}")
+        except Exception as e:
+            print(f"Error fetching {url}: {e}")
+
+    print(f"Total collected raw records: {len(raw_congress)}")
 
     ten_years_ago = datetime.now() - timedelta(days=365 * 10)
 
@@ -58,7 +60,6 @@ def update_congress_dynamically():
     for member_key, search_name in target_politicians.items():
         member_trades = []
         for t in raw_congress:
-            # 兼容各种字段命名
             rep_name = str(t.get("representative") or t.get("senator") or t.get("politician") or "").lower()
             
             if search_name in rep_name:
@@ -115,7 +116,7 @@ def update_congress_dynamically():
 
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
-    print("Successfully generated dynamic congress_data.json from public endpoint")
+    print("Successfully generated dynamic congress_data.json via official APIs")
 
 if __name__ == "__main__":
     update_congress_dynamically()
