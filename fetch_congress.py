@@ -3,6 +3,19 @@ import json
 import os
 import requests
 
+# 新增：强大的多格式日期解析函数
+def parse_flexible_date(date_str):
+    if not date_str:
+        return None
+    # 穷举国会 API 中可能出现的随意日期格式
+    formats = ["%Y-%m-%d", "%m/%d/%Y", "%Y-%m-%dT%H:%M:%S", "%Y/%m/%d"]
+    for fmt in formats:
+        try:
+            return datetime.strptime(date_str, fmt)
+        except ValueError:
+            pass
+    return None
+
 def update_congress_dynamically():
     print("Fetching trade history from API...")
     url = "https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json"
@@ -18,7 +31,7 @@ def update_congress_dynamically():
     except Exception as e:
         print(f"Error fetching congress data: {e}")
 
-    # 放宽到 10 年，防止某些议员近年没有交易
+    # 获取近 10 年的数据，确保覆盖足够长的时间线
     ten_years_ago = datetime.now() - timedelta(days=365 * 10)
 
     target_politicians = {
@@ -32,26 +45,20 @@ def update_congress_dynamically():
     os.makedirs("data", exist_ok=True)
     congress_export = {}
 
-    # 用于辅助调试：记录出现过的名字
-    all_reps = set()
-    for t in raw_congress:
-         all_reps.add(t.get("representative", ""))
-
     for member_key, search_name in target_politicians.items():
         member_trades = []
         for t in raw_congress:
             rep_name = str(t.get("representative", "")).lower()
             
-            # 使用更宽泛的匹配
+            # 放宽的姓名匹配
             if search_name in rep_name:
                 trade_date_str = t.get("transaction_date") or t.get("disclosure_date")
-                if trade_date_str:
-                    try:
-                        trade_date = datetime.strptime(trade_date_str, "%Y-%m-%d")
-                        if trade_date >= ten_years_ago:
-                            member_trades.append(t)
-                    except ValueError:
-                        pass
+                
+                # 使用灵活的日期解析
+                trade_date = parse_flexible_date(trade_date_str)
+                
+                if trade_date and trade_date >= ten_years_ago:
+                    member_trades.append(t)
 
         print(f"Found {len(member_trades)} trades for {member_key}")
 
@@ -62,7 +69,8 @@ def update_congress_dynamically():
             ticker = t.get("ticker")
             t_type = t.get("type", "").lower()
 
-            if ticker and ticker != "--":
+            # 过滤掉无效的股票代码
+            if ticker and ticker != "--" and ticker != "N/A":
                 ticker_activity[ticker] = ticker_activity.get(ticker, 0) + 1
 
             formatted_trades.append({
@@ -77,13 +85,10 @@ def update_congress_dynamically():
                 "underlying_shares": 5000,
             })
 
+        # 动态聚合持仓：从交易最多的股票中提取
         dynamic_holdings = []
-        sorted_tickers = sorted(ticker_activity.items(), key=lambda x: x[1], reverse=True)[:6]
+        sorted_tickers = sorted(ticker_activity.items(), key=lambda x: x[1], reverse=True)[:10]
         
-        # 移除兜底数据，如果没数据，直接空着，这样更容易暴露问题
-        if not sorted_tickers:
-             print(f"WARNING: No data aggregated for {member_key}. Check API names.")
-             
         for ticker, count in sorted_tickers:
             dynamic_holdings.append({
                 "Ticker": ticker,
@@ -93,7 +98,8 @@ def update_congress_dynamically():
                 "Est. Allocation (%)": round(100 / max(len(sorted_tickers), 1), 2),
             })
 
-        formatted_trades.sort(key=lambda x: x.get("Filing Date") or "", reverse=True)
+        # 按申报日期安全排序
+        formatted_trades.sort(key=lambda x: str(x.get("Filing Date") or ""), reverse=True)
 
         congress_export[member_key] = {
             "holdings": dynamic_holdings,
@@ -103,10 +109,6 @@ def update_congress_dynamically():
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
     print("Successfully generated dynamic congress_data.json")
-    
-    # 打印一下 API 里所有带 Pelosi 的名字，看看到底是什么格式
-    pelosi_matches = [name for name in all_reps if "pelosi" in str(name).lower()]
-    print(f"API names matching 'pelosi': {pelosi_matches}")
 
 if __name__ == "__main__":
     update_congress_dynamically()
