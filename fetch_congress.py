@@ -17,10 +17,26 @@ def parse_amount_midpoint(amount_str):
             return 0
     return 15000
 
+def fetch_json_safely(url):
+    """安全请求并校验是否为合法 JSON，防止代理返回 HTML 导致崩溃"""
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"}
+    try:
+        resp = requests.get(url, headers=headers, timeout=35)
+        if resp.status_code == 200:
+            text = resp.text.strip()
+            # 检查是否为合法的 JSON 数组或对象开头
+            if text.startswith('[') or text.startswith('{'):
+                return resp.json()
+            else:
+                print(f"⚠️ Response is not JSON (might be HTML error page): {text[:100]}...")
+    except Exception as e:
+        print(f"Fetch exception for {url}: {e}")
+    return None
+
 def fetch_real_congress_data():
-    print("Fetching REAL trade history from verified public endpoints...")
+    print("Fetching REAL trade history with safe JSON validation...")
     
-    # 官方及高可用公开数据源主链与备用链
+    # 多个备用数据源通道
     house_urls = [
         "https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json",
         "https://api.allorigins.win/raw?url=https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json"
@@ -30,46 +46,33 @@ def fetch_real_congress_data():
         "https://api.allorigins.win/raw?url=https://senate-stock-watcher-data.s3-us-west-2.amazonaws.com/aggregate/all_transactions.json"
     ]
     
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"}
     raw_trades = []
     
-    # 1. 抓取众议院数据
-    house_success = False
+    # 1. 获取众议院数据
     for url in house_urls:
-        try:
-            print(f"Trying House endpoint: {url[:40]}...")
-            resp = requests.get(url, headers=headers, timeout=30)
-            if resp.status_code == 200:
-                data = resp.json()
-                for row in data:
-                    row['Name'] = row.get('representative', '')
-                    raw_trades.append(row)
-                print(f"✅ Successfully loaded {len(data)} House records.")
-                house_success = True
-                break
-        except Exception as e:
-            print(f"Attempt failed: {e}")
-            
-    # 2. 抓取参议院数据
-    senate_success = False
+        print(f"Trying House source...")
+        data = fetch_json_safely(url)
+        if data and isinstance(data, list):
+            for row in data:
+                row['Name'] = row.get('representative', '')
+                raw_trades.append(row)
+            print(f"✅ Successfully loaded {len(data)} House records.")
+            break
+
+    # 2. 获取参议院数据
     for url in senate_urls:
-        try:
-            print(f"Trying Senate endpoint: {url[:40]}...")
-            resp = requests.get(url, headers=headers, timeout=30)
-            if resp.status_code == 200:
-                data = resp.json()
-                for row in data:
-                    row['Name'] = row.get('senator', '')
-                    raw_trades.append(row)
-                print(f"✅ Successfully loaded {len(data)} Senate records.")
-                senate_success = True
-                break
-        except Exception as e:
-            print(f"Attempt failed: {e}")
+        print(f"Trying Senate source...")
+        data = fetch_json_safely(url)
+        if data and isinstance(data, list):
+            for row in data:
+                row['Name'] = row.get('senator', '')
+                raw_trades.append(row)
+            print(f"✅ Successfully loaded {len(data)} Senate records.")
+            break
 
     df = pd.DataFrame(raw_trades)
     
-    # 你关注的 5 位核心政要姓名映射
+    # 核心关注的 5 位政要
     target_mapping = {
         "Pelosi": "Nancy Pelosi (D - House)",
         "Tuberville": "Tommy Tuberville (R - Senate)",
@@ -84,7 +87,6 @@ def fetch_real_congress_data():
     if not df.empty:
         for index, row in df.iterrows():
             raw_name = str(row.get('Name', ''))
-            
             matched_key = None
             for keyword, display_name in target_mapping.items():
                 if keyword.lower() in raw_name.lower():
@@ -173,7 +175,7 @@ def fetch_real_congress_data():
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
         
-    print("✅ Successfully generated REAL congress_data.json.")
+    print("✅ Successfully generated REAL congress_data.json with valid data parsing.")
 
 if __name__ == "__main__":
     fetch_real_congress_data()
