@@ -15,12 +15,10 @@ def parse_flexible_date(date_str):
     return None
 
 def update_congress_dynamically():
-    print("Fetching trade history from open community mirror API...")
+    print("Fetching trade history from stable open-source raw data endpoint...")
     
-    # 切换为目前稳定、免费的开源社区 JSON 镜像数据源
-    url = "https://hugging-face.cn/datasets/seralifatih/us-congress-stock-trades-2025/raw/main/all_transactions.json"
-    # 备用直连源
-    backup_url = "https://raw.githubusercontent.com/seralifatih/congress-stock-trades-mirror/main/all_transactions.json"
+    # 采用目前稳定且永久公开的国会交易数据公开源
+    url = "https://raw.githubusercontent.com/fja05680/congressional-stock-watcher-data/main/data/all_transactions.json"
 
     raw_congress = []
     headers = {
@@ -30,9 +28,6 @@ def update_congress_dynamically():
 
     try:
         res = requests.get(url, headers=headers, timeout=30)
-        if res.status_code != 200:
-            res = requests.get(backup_url, headers=headers, timeout=30)
-            
         if res.status_code == 200:
             data = res.json()
             if isinstance(data, list):
@@ -41,11 +36,11 @@ def update_congress_dynamically():
                 for k, v in data.items():
                     if isinstance(v, list):
                         raw_congress.extend(v)
-            print(f"Success: Loaded {len(raw_congress)} records from community mirror.")
+            print(f"Success: Loaded {len(raw_congress)} records from open-source raw endpoint.")
         else:
-            print(f"Failed to fetch mirror, status: {res.status_code}")
+            print(f"Failed to fetch raw endpoint, status: {res.status_code}")
     except Exception as e:
-        print(f"Error fetching community mirror: {e}")
+        print(f"Error fetching raw endpoint: {e}")
 
     ten_years_ago = datetime.now() - timedelta(days=365 * 10)
 
@@ -120,7 +115,7 @@ def update_congress_dynamically():
 
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
-    print("Successfully generated dynamic congress_data.json from community API")
+    print("Successfully generated dynamic congress_data.json from public endpoint")
 
 if __name__ == "__main__":
     update_congress_dynamically()
