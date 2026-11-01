@@ -18,43 +18,54 @@ def parse_amount_midpoint(amount_str):
     return 15000
 
 def fetch_real_congress_data():
-    print("Fetching REAL trade history from GitHub raw mirrors (Zero-Blockage)...")
+    print("Fetching REAL trade history from verified public endpoints...")
     
-    # 使用 GitHub 官方 Raw 镜像源，完美绕过 AWS/Cloudflare 的云端机房拦截
-    house_url = "https://raw.githubusercontent.com/shufinskiy/house-stock-watcher-data/main/data/all_transactions.json"
-    senate_url = "https://raw.githubusercontent.com/shufinskiy/senate-stock-watcher-data/main/aggregate/all_transactions.json"
+    # 官方及高可用公开数据源主链与备用链
+    house_urls = [
+        "https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json",
+        "https://api.allorigins.win/raw?url=https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json"
+    ]
+    senate_urls = [
+        "https://senate-stock-watcher-data.s3-us-west-2.amazonaws.com/aggregate/all_transactions.json",
+        "https://api.allorigins.win/raw?url=https://senate-stock-watcher-data.s3-us-west-2.amazonaws.com/aggregate/all_transactions.json"
+    ]
     
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"}
     raw_trades = []
     
-    # 1. 抓取众议院真实数据
-    try:
-        print("Downloading House real disclosures...")
-        resp = requests.get(house_url, timeout=30)
-        if resp.status_code == 200:
-            data = resp.json()
-            for row in data:
-                row['Name'] = row.get('representative', '')
-                raw_trades.append(row)
-            print(f"✅ Successfully loaded {len(data)} real House records.")
-        else:
-            print(f"House raw fetch status: {resp.status_code}")
-    except Exception as e:
-        print(f"House fetch exception: {e}")
-
-    # 2. 抓取参议院真实数据
-    try:
-        print("Downloading Senate real disclosures...")
-        resp = requests.get(senate_url, timeout=30)
-        if resp.status_code == 200:
-            data = resp.json()
-            for row in data:
-                row['Name'] = row.get('senator', '')
-                raw_trades.append(row)
-            print(f"✅ Successfully loaded {len(data)} real Senate records.")
-        else:
-            print(f"Senate raw fetch status: {resp.status_code}")
-    except Exception as e:
-        print(f"Senate fetch exception: {e}")
+    # 1. 抓取众议院数据
+    house_success = False
+    for url in house_urls:
+        try:
+            print(f"Trying House endpoint: {url[:40]}...")
+            resp = requests.get(url, headers=headers, timeout=30)
+            if resp.status_code == 200:
+                data = resp.json()
+                for row in data:
+                    row['Name'] = row.get('representative', '')
+                    raw_trades.append(row)
+                print(f"✅ Successfully loaded {len(data)} House records.")
+                house_success = True
+                break
+        except Exception as e:
+            print(f"Attempt failed: {e}")
+            
+    # 2. 抓取参议院数据
+    senate_success = False
+    for url in senate_urls:
+        try:
+            print(f"Trying Senate endpoint: {url[:40]}...")
+            resp = requests.get(url, headers=headers, timeout=30)
+            if resp.status_code == 200:
+                data = resp.json()
+                for row in data:
+                    row['Name'] = row.get('senator', '')
+                    raw_trades.append(row)
+                print(f"✅ Successfully loaded {len(data)} Senate records.")
+                senate_success = True
+                break
+        except Exception as e:
+            print(f"Attempt failed: {e}")
 
     df = pd.DataFrame(raw_trades)
     
@@ -110,7 +121,7 @@ def fetch_real_congress_data():
                     "multiplier": multiplier 
                 })
 
-    print("Calculating real dynamic holdings based on 5-year trade history...")
+    print("Calculating real dynamic holdings based on trade history...")
     for member, data in congress_export.items():
         net_investment = {}
         for t in data["trades"]:
@@ -162,7 +173,7 @@ def fetch_real_congress_data():
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
         
-    print("✅ Successfully generated REAL congress_data.json using GitHub Raw mirrors.")
+    print("✅ Successfully generated REAL congress_data.json.")
 
 if __name__ == "__main__":
     fetch_real_congress_data()
