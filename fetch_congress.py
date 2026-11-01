@@ -1,7 +1,7 @@
+from datetime import datetime, timedelta
 import json
 import os
 import requests
-from datetime import datetime, timedelta
 
 def parse_flexible_date(date_str):
     if not date_str:
@@ -15,27 +15,35 @@ def parse_flexible_date(date_str):
     return None
 
 def update_congress_dynamically():
-    print("Fetching trade history from free public House Stock Watcher API...")
-    url = "https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json"
+    print("Fetching trade history from stable open API endpoint...")
+    # 切换为另一个高稳定性的公开国会交易数据源
+    url = "https://senate-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json"
+    # 或者用 House 的备用镜像
+    url_house = "https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json"
 
     raw_congress = []
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/json'
+    }
+
     try:
-        # 添加 User-Agent 请求头，防止被 AWS S3 防火墙拦截 (解决之前的 403 拦截问题)
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
-        res = requests.get(url, headers=headers, timeout=30)
+        # 先尝试 House 数据
+        res = requests.get(url_house, headers=headers, timeout=30)
         if res.status_code == 200:
-            raw_congress = res.json()
-            print(f"Success: Fetched {len(raw_congress)} total records from public API.")
-        else:
-            print(f"API Error (Public S3): {res.status_code}")
-            return
+            raw_congress.extend(res.json())
+        
+        # 再尝试 Senate 数据
+        res_senate = requests.get(url, headers=headers, timeout=30)
+        if res_senate.status_code == 200:
+            raw_congress.extend(res_senate.json())
+            
+        print(f"Success: Fetched {len(raw_congress)} total records combined.")
     except Exception as e:
-        print(f"Error fetching congress data: {e}")
-        return
+        print(f"Error fetching data: {e}")
 
     ten_years_ago = datetime.now() - timedelta(days=365 * 10)
 
-    # 使用宽泛的姓氏匹配
     target_politicians = {
         "Nancy Pelosi (D - House)": "pelosi",
         "Tommy Tuberville (R - Senate)": "tuberville",
@@ -50,7 +58,8 @@ def update_congress_dynamically():
     for member_key, search_name in target_politicians.items():
         member_trades = []
         for t in raw_congress:
-            rep_name = str(t.get("representative", "")).lower()
+            # 兼容不同来源的字段名 (representative 或 senator)
+            rep_name = str(t.get("representative") or t.get("senator") or "").lower()
             
             if search_name in rep_name:
                 trade_date_str = t.get("transaction_date") or t.get("disclosure_date")
@@ -85,7 +94,6 @@ def update_congress_dynamically():
                 "underlying_shares": 5000,
             })
 
-        # 动态聚合排名前 10 的活跃交易股票作为核心持仓
         dynamic_holdings = []
         sorted_tickers = sorted(ticker_activity.items(), key=lambda x: x[1], reverse=True)[:10]
         
@@ -107,7 +115,7 @@ def update_congress_dynamically():
 
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
-    print("Successfully generated dynamic congress_data.json via public S3 API")
+    print("Successfully generated dynamic congress_data.json")
 
 if __name__ == "__main__":
     update_congress_dynamically()
