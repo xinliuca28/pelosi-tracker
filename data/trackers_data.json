@@ -1,0 +1,30 @@
+{
+    "Nancy Pelosi (D - House)": [],
+    "Tommy Tuberville (R - Senate)": [],
+    "Mark Green (R - House)": [],
+    "Dan Crenshaw (R - House)": [],
+    "Josh Gottheimer (D - House)": [],
+    "Warren Buffett (Berkshire)": [
+        {
+            "Ticker": "AAPL",
+            "Company": "Apple",
+            "Est. Cost Basis ($)": 35.0,
+            "Est. Value ($10k)": 842480,
+            "Est. Allocation (%)": 35.0
+        },
+        {
+            "Ticker": "GOOGL",
+            "Company": "Alphabet (Google)",
+            "Est. Cost Basis ($)": 140.0,
+            "Est. Value ($10k)": 250000,
+            "Est. Allocation (%)": 10.4
+        },
+        {
+            "Ticker": "BAC",
+            "Company": "Bank of America",
+            "Est. Cost Basis ($)": 24.0,
+            "Est. Value ($10k)": 411200,
+            "Est. Allocation (%)": 9.5
+        }
+    ]
+}
