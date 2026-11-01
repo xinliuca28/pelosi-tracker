@@ -1,9 +1,124 @@
 {
-    "Nancy Pelosi (D - House)": [],
-    "Tommy Tuberville (R - Senate)": [],
-    "Mark Green (R - House)": [],
-    "Dan Crenshaw (R - House)": [],
-    "Josh Gottheimer (D - House)": [],
+    "Nancy Pelosi (D - House)": [
+        {
+            "Filing Date": "2026-10-02",
+            "Trade Date": "2026-09-08",
+            "Ticker": "REOF",
+            "Action": "🟢 Purchase",
+            "Asset Class": "LLC Real Estate",
+            "Description": "REOF XXX Commercial Property",
+            "Disclosed Range": "$500k - $1M",
+            "midpoint_val": 750000,
+            "underlying_shares": null
+        },
+        {
+            "Filing Date": "2026-08-21",
+            "Trade Date": "2026-07-28",
+            "Ticker": "BE",
+            "Action": "🟢 Purchase",
+            "Asset Class": "Call Option",
+            "Description": "100 Calls · $100 Strike (Exp 06/17/27)",
+            "Disclosed Range": "$500k - $1M",
+            "midpoint_val": 750000,
+            "underlying_shares": 10000
+        }
+    ],
+    "Tommy Tuberville (R - Senate)": [
+        {
+            "Filing Date": "2026-10-02",
+            "Trade Date": "2026-09-08",
+            "Ticker": "REOF",
+            "Action": "🟢 Purchase",
+            "Asset Class": "LLC Real Estate",
+            "Description": "REOF XXX Commercial Property",
+            "Disclosed Range": "$500k - $1M",
+            "midpoint_val": 750000,
+            "underlying_shares": null
+        },
+        {
+            "Filing Date": "2026-08-21",
+            "Trade Date": "2026-07-28",
+            "Ticker": "BE",
+            "Action": "🟢 Purchase",
+            "Asset Class": "Call Option",
+            "Description": "100 Calls · $100 Strike (Exp 06/17/27)",
+            "Disclosed Range": "$500k - $1M",
+            "midpoint_val": 750000,
+            "underlying_shares": 10000
+        }
+    ],
+    "Mark Green (R - House)": [
+        {
+            "Filing Date": "2026-10-02",
+            "Trade Date": "2026-09-08",
+            "Ticker": "REOF",
+            "Action": "🟢 Purchase",
+            "Asset Class": "LLC Real Estate",
+            "Description": "REOF XXX Commercial Property",
+            "Disclosed Range": "$500k - $1M",
+            "midpoint_val": 750000,
+            "underlying_shares": null
+        },
+        {
+            "Filing Date": "2026-08-21",
+            "Trade Date": "2026-07-28",
+            "Ticker": "BE",
+            "Action": "🟢 Purchase",
+            "Asset Class": "Call Option",
+            "Description": "100 Calls · $100 Strike (Exp 06/17/27)",
+            "Disclosed Range": "$500k - $1M",
+            "midpoint_val": 750000,
+            "underlying_shares": 10000
+        }
+    ],
+    "Dan Crenshaw (R - House)": [
+        {
+            "Filing Date": "2026-10-02",
+            "Trade Date": "2026-09-08",
+            "Ticker": "REOF",
+            "Action": "🟢 Purchase",
+            "Asset Class": "LLC Real Estate",
+            "Description": "REOF XXX Commercial Property",
+            "Disclosed Range": "$500k - $1M",
+            "midpoint_val": 750000,
+            "underlying_shares": null
+        },
+        {
+            "Filing Date": "2026-08-21",
+            "Trade Date": "2026-07-28",
+            "Ticker": "BE",
+            "Action": "🟢 Purchase",
+            "Asset Class": "Call Option",
+            "Description": "100 Calls · $100 Strike (Exp 06/17/27)",
+            "Disclosed Range": "$500k - $1M",
+            "midpoint_val": 750000,
+            "underlying_shares": 10000
+        }
+    ],
+    "Josh Gottheimer (D - House)": [
+        {
+            "Filing Date": "2026-10-02",
+            "Trade Date": "2026-09-08",
+            "Ticker": "REOF",
+            "Action": "🟢 Purchase",
+            "Asset Class": "LLC Real Estate",
+            "Description": "REOF XXX Commercial Property",
+            "Disclosed Range": "$500k - $1M",
+            "midpoint_val": 750000,
+            "underlying_shares": null
+        },
+        {
+            "Filing Date": "2026-08-21",
+            "Trade Date": "2026-07-28",
+            "Ticker": "BE",
+            "Action": "🟢 Purchase",
+            "Asset Class": "Call Option",
+            "Description": "100 Calls · $100 Strike (Exp 06/17/27)",
+            "Disclosed Range": "$500k - $1M",
+            "midpoint_val": 750000,
+            "underlying_shares": 10000
+        }
+    ],
     "Warren Buffett (Berkshire)": [
         {
             "Ticker": "AAPL",
