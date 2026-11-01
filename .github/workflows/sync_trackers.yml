@@ -1,8 +1,8 @@
-name: Sync All External Trackers
+name: Sync Separate Trackers Data
 
 on:
   schedule:
-    - cron: '0 8 * * *' # 每天自动运行一次
+    - cron: '0 8 * * *'
   workflow_dispatch:
 
 jobs:
@@ -23,12 +23,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests pandas
 
+      # 依次运行两个独立的外部数据源脚本
       - name: Run Congress 5-Year Fetcher
         run: python fetch_congress.py
 
       - name: Run Buffett 13F Fetcher
-        env:
-          FMP_API_KEY: ${{ secrets.FMP_API_KEY }} # 如果使用 API Key 可在 GitHub Secrets 中配置
         run: python fetch_buffett.py
 
       - name: Commit and push data changes
