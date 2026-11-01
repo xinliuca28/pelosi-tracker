@@ -22,13 +22,33 @@
         ],
         "trades": [
             {
+                "Filing Date": "2026-10-02",
+                "Trade Date": "2026-09-08",
+                "Ticker": "-",
+                "Action": "🟢 Purchase",
+                "Asset Class": "AB",
+                "Description": "Investment in LLC which is acquiring and managing a commercial office property at 225 Bush Street in San Francisco, CA.",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
                 "Filing Date": "2026-08-21",
                 "Trade Date": "2026-07-28",
                 "Ticker": "BE",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for BE",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "Purchased 5,000 shares.",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-21",
+                "Trade Date": "2026-07-27",
+                "Ticker": "-",
+                "Action": "🟢 Purchase",
+                "Asset Class": "AB",
+                "Description": "Additional investment in LLC which is acquiring and restoring a luxury hotel property in San Francisco, CA.",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -37,8 +57,8 @@
                 "Ticker": "INTC",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for INTC",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "Purchased 10,000 shares.",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -47,8 +67,8 @@
                 "Ticker": "INTC",
                 "Action": "🟢 Purchase",
                 "Asset Class": "OP",
-                "Description": "Disclosed transaction for INTC",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "Purchased 50 call options with a strike price of $50 and an expiration date of 6/17/27.",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -57,8 +77,8 @@
                 "Ticker": "BE",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for BE",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "Purchased 10,000 shares.",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             }
         ]
@@ -71,13 +91,53 @@
         "holdings": [],
         "trades": [
             {
+                "Filing Date": "2026-10-08",
+                "Trade Date": "2026-08-31",
+                "Ticker": "-",
+                "Action": "🔴 Sale",
+                "Asset Class": "None",
+                "Description": "PURCHASED/SOLD ASSET (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-28",
+                "Trade Date": "2026-08-14",
+                "Ticker": "-",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Non-Public Stock",
+                "Description": "PURCHASED/SOLD ASSET (Non-Public Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-22",
+                "Trade Date": "2026-06-05",
+                "Ticker": "-",
+                "Action": "🟢 Purchase",
+                "Asset Class": "None",
+                "Description": "PURCHASED/SOLD ASSET (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
                 "Filing Date": "2026-09-22",
                 "Trade Date": "2024-07-29",
                 "Ticker": "GRBK",
                 "Action": "🔴 Sale",
                 "Asset Class": "None",
-                "Description": "Disclosed transaction for GRBK",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD GRBK (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-22",
+                "Trade Date": "2024-07-29",
+                "Ticker": "-",
+                "Action": "🔴 Sale",
+                "Asset Class": "None",
+                "Description": "PURCHASED/SOLD ASSET (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             }
         ]
@@ -186,8 +246,8 @@
                 "Ticker": "MCD",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for MCD",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD MCD (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -196,8 +256,8 @@
                 "Ticker": "AMAT",
                 "Action": "🔴 Sale",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for AMAT",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD AMAT (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -206,8 +266,8 @@
                 "Ticker": "MSFT",
                 "Action": "🔴 Sale",
                 "Asset Class": "OP",
-                "Description": "Disclosed transaction for MSFT",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "Call options; Strike price $335; Expires 12/18/2026",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -216,8 +276,8 @@
                 "Ticker": "MSFT",
                 "Action": "🔴 Sale",
                 "Asset Class": "OP",
-                "Description": "Disclosed transaction for MSFT",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "Call options; Strike price $340; Expires 12/18/2026",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -226,8 +286,8 @@
                 "Ticker": "MSFT",
                 "Action": "🟢 Purchase",
                 "Asset Class": "OP",
-                "Description": "Disclosed transaction for MSFT",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "Call options; Strike price $330; Expires 10/16/2026",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -236,8 +296,8 @@
                 "Ticker": "MSFT",
                 "Action": "🟢 Purchase",
                 "Asset Class": "OP",
-                "Description": "Disclosed transaction for MSFT",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "Call options; Strike price $340; Expires 10/16/2026",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -246,8 +306,8 @@
                 "Ticker": "QSR",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for QSR",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD QSR (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -256,8 +316,8 @@
                 "Ticker": "RSG",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for RSG",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD RSG (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -266,8 +326,8 @@
                 "Ticker": "AMAT",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for AMAT",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD AMAT (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -276,8 +336,8 @@
                 "Ticker": "GOOGN",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for GOOGN",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD GOOGN (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -286,8 +346,8 @@
                 "Ticker": "GOOGM",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for GOOGM",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD GOOGM (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -296,8 +356,8 @@
                 "Ticker": "CCI",
                 "Action": "🔴 Sale",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for CCI",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD CCI (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -306,8 +366,8 @@
                 "Ticker": "GOOGN",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for GOOGN",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD GOOGN (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -316,8 +376,8 @@
                 "Ticker": "SAIL",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for SAIL",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD SAIL (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -326,8 +386,8 @@
                 "Ticker": "NICE",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for NICE",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD NICE (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -336,8 +396,8 @@
                 "Ticker": "MNST",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for MNST",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD MNST (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -346,8 +406,8 @@
                 "Ticker": "GTLS",
                 "Action": "🔴 Sale",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for GTLS",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD GTLS (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -356,8 +416,8 @@
                 "Ticker": "PANW",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for PANW",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD PANW (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -366,8 +426,8 @@
                 "Ticker": "IBM",
                 "Action": "🔴 Sale",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for IBM",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD IBM (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -376,8 +436,8 @@
                 "Ticker": "IBM",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for IBM",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD IBM (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -386,8 +446,8 @@
                 "Ticker": "CRWD",
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for CRWD",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD CRWD (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
             {
@@ -396,8 +456,8 @@
                 "Ticker": "FN",
                 "Action": "🔴 Sale",
                 "Asset Class": "ST",
-                "Description": "Disclosed transaction for FN",
-                "Disclosed Range": "$1,001 - $15,000",
+                "Description": "PURCHASED/SOLD FN (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             }
         ]
