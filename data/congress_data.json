@@ -2,11 +2,20 @@
     "Nancy Pelosi (D - House)": {
         "holdings": [
             {
+                "Ticker": "PRIVATE-ASSET",
+                "Company": "PRIVATE-ASSET",
+                "Cost Basis ($)": 85.0,
+                "Est. Value ($10k)": 3.0,
+                "Est. Allocation (%)": 33.33,
+                "Current Price ($)": 100.0,
+                "Est. ROI (%)": 18.5
+            },
+            {
                 "Ticker": "BE",
                 "Company": "BE",
                 "Cost Basis ($)": 172.69,
                 "Est. Value ($10k)": 3.0,
-                "Est. Allocation (%)": 50.0,
+                "Est. Allocation (%)": 33.33,
                 "Current Price ($)": 203.17,
                 "Est. ROI (%)": 18.5
             },
@@ -15,7 +24,7 @@
                 "Company": "INTC",
                 "Cost Basis ($)": 55.9,
                 "Est. Value ($10k)": 3.0,
-                "Est. Allocation (%)": 50.0,
+                "Est. Allocation (%)": 33.33,
                 "Current Price ($)": 65.76,
                 "Est. ROI (%)": 18.5
             }
@@ -24,7 +33,7 @@
             {
                 "Filing Date": "2026-10-02",
                 "Trade Date": "2026-09-08",
-                "Ticker": "-",
+                "Ticker": "PRIVATE-ASSET",
                 "Action": "🟢 Purchase",
                 "Asset Class": "AB",
                 "Description": "Investment in LLC which is acquiring and managing a commercial office property at 225 Bush Street in San Francisco, CA.",
@@ -44,7 +53,7 @@
             {
                 "Filing Date": "2026-08-21",
                 "Trade Date": "2026-07-27",
-                "Ticker": "-",
+                "Ticker": "PRIVATE-ASSET",
                 "Action": "🟢 Purchase",
                 "Asset Class": "AB",
                 "Description": "Additional investment in LLC which is acquiring and restoring a luxury hotel property in San Francisco, CA.",
@@ -103,7 +112,7 @@
             {
                 "Filing Date": "2026-10-08",
                 "Trade Date": "2026-08-31",
-                "Ticker": "-",
+                "Ticker": "PRIVATE-ASSET",
                 "Action": "🔴 Sale",
                 "Asset Class": "Stock",
                 "Description": "TRANSACTION FOR ASSET (Stock) VIA PUBLIC DISCLOSURE",
@@ -113,7 +122,7 @@
             {
                 "Filing Date": "2026-09-28",
                 "Trade Date": "2026-08-14",
-                "Ticker": "-",
+                "Ticker": "PRIVATE-ASSET",
                 "Action": "🟢 Purchase",
                 "Asset Class": "Non-Public Stock",
                 "Description": "TRANSACTION FOR ASSET (Non-Public Stock) VIA PUBLIC DISCLOSURE",
@@ -123,7 +132,7 @@
             {
                 "Filing Date": "2026-08-22",
                 "Trade Date": "2026-06-05",
-                "Ticker": "-",
+                "Ticker": "PRIVATE-ASSET",
                 "Action": "🟢 Purchase",
                 "Asset Class": "Stock",
                 "Description": "TRANSACTION FOR ASSET (Stock) VIA PUBLIC DISCLOSURE",
@@ -143,7 +152,7 @@
             {
                 "Filing Date": "2026-09-22",
                 "Trade Date": "2024-07-29",
-                "Ticker": "-",
+                "Ticker": "PRIVATE-ASSET",
                 "Action": "🔴 Sale",
                 "Asset Class": "Stock",
                 "Description": "TRANSACTION FOR ASSET (Stock) VIA PUBLIC DISCLOSURE",
@@ -159,7 +168,7 @@
                 "Company": "DHR",
                 "Cost Basis ($)": 197.4,
                 "Est. Value ($10k)": 7.5,
-                "Est. Allocation (%)": 45.45,
+                "Est. Allocation (%)": 41.67,
                 "Current Price ($)": 232.23,
                 "Est. ROI (%)": 18.5
             },
@@ -168,7 +177,7 @@
                 "Company": "KAI",
                 "Cost Basis ($)": 225.49,
                 "Est. Value ($10k)": 4.5,
-                "Est. Allocation (%)": 27.27,
+                "Est. Allocation (%)": 25.0,
                 "Current Price ($)": 265.28,
                 "Est. ROI (%)": 18.5
             },
@@ -177,7 +186,7 @@
                 "Company": "GH",
                 "Cost Basis ($)": 151.98,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 9.09,
+                "Est. Allocation (%)": 8.33,
                 "Current Price ($)": 178.8,
                 "Est. ROI (%)": 18.5
             },
@@ -186,8 +195,17 @@
                 "Company": "NVDA",
                 "Cost Basis ($)": 173.94,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 9.09,
+                "Est. Allocation (%)": 8.33,
                 "Current Price ($)": 204.64,
+                "Est. ROI (%)": 18.5
+            },
+            {
+                "Ticker": "PRIVATE-ASSET",
+                "Company": "PRIVATE-ASSET",
+                "Cost Basis ($)": 85.0,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 8.33,
+                "Current Price ($)": 100.0,
                 "Est. ROI (%)": 18.5
             },
             {
@@ -195,7 +213,7 @@
                 "Company": "PSKY",
                 "Cost Basis ($)": 127.5,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 9.09,
+                "Est. Allocation (%)": 8.33,
                 "Current Price ($)": 150.0,
                 "Est. ROI (%)": 18.5
             }
@@ -214,7 +232,7 @@
             {
                 "Filing Date": "2026-10-07",
                 "Trade Date": "2026-09-25",
-                "Ticker": "-",
+                "Ticker": "PRIVATE-ASSET",
                 "Action": "🟢 Purchase",
                 "Asset Class": "Stock",
                 "Description": "TRANSACTION FOR ASSET (Stock) VIA PUBLIC DISCLOSURE",
@@ -254,7 +272,7 @@
             {
                 "Filing Date": "2026-09-22",
                 "Trade Date": "2026-07-23",
-                "Ticker": "-",
+                "Ticker": "PRIVATE-ASSET",
                 "Action": "🔴 Sale",
                 "Asset Class": "Stock",
                 "Description": "TRANSACTION FOR ASSET (Stock) VIA PUBLIC DISCLOSURE",
@@ -284,7 +302,7 @@
             {
                 "Filing Date": "2026-08-07",
                 "Trade Date": "2026-07-20",
-                "Ticker": "-",
+                "Ticker": "PRIVATE-ASSET",
                 "Action": "🔴 Sale",
                 "Asset Class": "Stock",
                 "Description": "TRANSACTION FOR ASSET (Stock) VIA PUBLIC DISCLOSURE",
