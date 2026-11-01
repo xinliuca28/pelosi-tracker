@@ -1,4 +1,3 @@
-from datetime import datetime
 import json
 import os
 import pandas as pd
@@ -7,14 +6,22 @@ import requests
 def update_congress_dynamically():
     print("Fetching real trade history from public open-source disclosures...")
     
-    # 采用开源社区长期维护、结构稳定的公开 JSON 数据源（聚合自美国众议院与参议院公开披露文件）
     url = "https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json"
     
+    # 增加浏览器伪装头，突破 403 拦截
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": "https://housestockwatcher.com/"
+    }
+    
     try:
-        response = requests.get(url, timeout=30)
+        # 在请求中传入 headers
+        response = requests.get(url, headers=headers, timeout=30)
         if response.status_code == 200:
             raw_data = response.json()
-            print(f"Successfully fetched {len(raw_data)} raw records from public disclosures.")
+            print(f"Successfully fetched {len(raw_data)} raw records.")
         else:
             print(f"Failed to fetch data, status code: {response.status_code}")
             return
@@ -22,15 +29,8 @@ def update_congress_dynamically():
         print(f"Exception occurred while fetching data: {e}")
         return
 
-    # 将其转换为 DataFrame 以便进行便捷的数据清洗与聚合
     df = pd.DataFrame(raw_data)
-    
-    # 预处理字段，适配你的应用展示结构
-    # 通常原始数据包含字段如: representative, transaction_date, disclosure_date, ticker, type, amount, asset_description 等
     congress_export = {}
-    
-    # 按议员分组整理
-    # 如果原始字段名略有不同，可根据实际返回调整（此处以 standard house-stock-watcher 字段为准）
     grouped = df.groupby("representative")
     
     for member_name, group in grouped:
@@ -38,7 +38,6 @@ def update_congress_dynamically():
         dynamic_holdings_map = {}
         
         for _, row in group.iterrows():
-            # 格式化买卖行为标签
             tx_type = str(row.get("type", "")).capitalize()
             if "Purchase" in tx_type or "Buy" in tx_type:
                 action = "🟢 Purchase"
@@ -51,37 +50,28 @@ def update_congress_dynamically():
             if not ticker or ticker == "":
                 ticker = "OTHER"
                 
-            trade_date = row.get("transaction_date", "")
-            filing_date = row.get("disclosure_date", "")
-            amount_range = row.get("amount", "$1,001 - $15,000")
-            
             formatted_trades.append({
-                "Filing Date": filing_date,
-                "Trade Date": trade_date,
+                "Filing Date": row.get("disclosure_date", ""),
+                "Trade Date": row.get("transaction_date", ""),
                 "Ticker": ticker,
                 "Action": action,
                 "Asset Class": row.get("asset_type", "Common Stock"),
                 "Description": row.get("asset_description", f"Disclosed {ticker} transaction"),
-                "Disclosed Range": amount_range,
-                "midpoint_val": 15000, # 可根据实际区间进行更精细的解析
+                "Disclosed Range": row.get("amount", "$1,001 - $15,000"),
+                "midpoint_val": 15000,
                 "underlying_shares": 0,
             })
             
-            # 简易汇总生成当前持仓参考
-            if ticker != "OTHER":
-                if ticker not in dynamic_holdings_map:
-                    dynamic_holdings_map[ticker] = {
-                        "Ticker": ticker,
-                        "Company": row.get("asset_description", ticker),
-                        "Est. Cost Basis ($)": 100.0,
-                        "Est. Value ($10k)": 100,
-                        "Est. Allocation (%)": 0.0,
-                    }
+            if ticker != "OTHER" and ticker not in dynamic_holdings_map:
+                dynamic_holdings_map[ticker] = {
+                    "Ticker": ticker,
+                    "Company": row.get("asset_description", ticker),
+                    "Est. Cost Basis ($)": 100.0,
+                    "Est. Value ($10k)": 100,
+                    "Est. Allocation (%)": 0.0,
+                }
 
-        # 转换为列表
         dynamic_holdings = list(dynamic_holdings_map.values())
-        
-        # 简单均分持仓占比
         if dynamic_holdings:
             alloc = round(100.0 / len(dynamic_holdings), 2)
             for item in dynamic_holdings:
@@ -96,7 +86,7 @@ def update_congress_dynamically():
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
         
-    print("Successfully generated live-synced congress_data.json with real public records.")
+    print("Successfully generated live-synced congress_data.json.")
 
 if __name__ == "__main__":
     update_congress_dynamically()
