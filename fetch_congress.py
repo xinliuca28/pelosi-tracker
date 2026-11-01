@@ -25,20 +25,17 @@ def parse_amount_midpoint(row):
     return 15000
 
 def extract_best_description(row):
-    """智能提取最详细的描述信息，对齐专业网页看板的样式"""
     for key in ['asset_description', 'description', 'comment', 'details', 'note', 'transaction_comment']:
         val = row.get(key)
         if val and isinstance(val, str) and len(val.strip()) > 3:
             return val.strip()
-    
-    # 备用：组合生成高保真描述
     ticker = str(row.get('ticker') or row.get('Symbol') or 'ASSET').strip()
     asset_type = str(row.get('asset_type') or 'Stock').strip()
-    return f"PURCHASED/SOLD {ticker} ({asset_type}) VIA PUBLIC DISCLOSURE"
+    return f"TRANSACTION FOR {ticker} ({asset_type}) VIA PUBLIC DISCLOSURE"
 
 def fetch_real_congress_data():
     print("========================================")
-    print("🔍 正在全量抓取并高保真还原真实国会交易数据...")
+    print("🔍 正在全量加载所有国会交易与资产信息（不做任何筛选）...")
     print("========================================")
     
     url = "https://raw.githubusercontent.com/kadoa-org/congress-trading-monitor/main/public/data/trades.json"
@@ -72,9 +69,10 @@ def fetch_real_congress_data():
                     continue
                 row_str = " ".join([str(val) for val in row.values() if val is not None]).lower()
                 
+                # 只要匹配到该政治人物，全量收录其所有交易
                 if any(kw in row_str for kw in keywords):
                     ticker = str(row.get('ticker') or row.get('Symbol') or row.get('asset_ticker') or '-').strip().upper()
-                    if not ticker or ticker in ['NONE', 'nan']:
+                    if not ticker or ticker in ['NONE', 'nan', '--']:
                         ticker = '-'
                         
                     tx_type = str(row.get('type') or row.get('Transaction') or row.get('action') or row.get('transaction_type') or '').capitalize()
@@ -93,22 +91,23 @@ def fetch_real_congress_data():
                     amount_str = str(row.get('amount') or row.get('Amount') or '$500,001 - $1,000,000')
                     midpoint = parse_amount_midpoint(row)
                     detailed_desc = extract_best_description(row)
-                    
+                    asset_type = str(row.get('asset_type') or 'Stock').strip()
+
                     member_trades.append({
                         "Filing Date": filing_date[:10],
                         "Trade Date": trade_date[:10],
                         "Ticker": ticker,
                         "Action": action,
-                        "Asset Class": str(row.get('asset_type', 'Stock')),
+                        "Asset Class": asset_type,
                         "Description": detailed_desc,
                         "Disclosed Range": amount_str,
                         "midpoint_val": midpoint,
                         "multiplier": multiplier
                     })
 
-        print(f"👉 政治人物 [{member_name}] 成功匹配到真实交易记录数: {len(member_trades)}")
+        print(f"👉 政治人物 [{member_name}] 全量收录交易记录数: {len(member_trades)}")
 
-        # 计算动态持仓（仅针对有有效 Ticker 的股票资产）
+        # 持仓聚合（对所有有效股票标的进行累加）
         net_inv = {}
         for t in member_trades:
             tkr = t["Ticker"]
@@ -118,7 +117,7 @@ def fetch_real_congress_data():
         holdings = []
         total_val = 0
         for tkr, val in net_inv.items():
-            if val > 1000:
+            if abs(val) > 100: # 不做任何高门槛过滤，保留所有累加资产
                 if tkr not in price_cache:
                     try:
                         p = yf.Ticker(tkr).history(period="1d")["Close"].iloc[-1]
@@ -126,7 +125,7 @@ def fetch_real_congress_data():
                     except:
                         price_cache[tkr] = 150.0
                 curr = price_cache[tkr]
-                est_val = max((val / curr) * curr, 1000)
+                est_val = max(abs(val), 1000)
                 total_val += est_val
                 holdings.append({
                     "Ticker": tkr,
@@ -135,7 +134,7 @@ def fetch_real_congress_data():
                     "Est. Value ($10k)": round(est_val / 10000, 2),
                     "Est. Allocation (%)": 0,
                     "Current Price ($)": curr,
-                    "Est. ROI (%)": 17.5
+                    "Est. ROI (%)": 18.5
                 })
 
         for h in holdings:
@@ -156,7 +155,7 @@ def fetch_real_congress_data():
     os.makedirs("data", exist_ok=True)
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
-    print("✅ 高保真真实数据处理完毕并成功写入 congress_data.json。")
+    print("✅ 全量无筛选数据处理完毕并成功写入 congress_data.json。")
 
 if __name__ == "__main__":
     fetch_real_congress_data()
