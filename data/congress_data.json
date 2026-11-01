@@ -153,8 +153,235 @@
         ]
     },
     "Dan Crenshaw (R - House)": {
-        "holdings": [],
-        "trades": []
+        "holdings": [
+            {
+                "Ticker": "DHR",
+                "Company": "DHR",
+                "Cost Basis ($)": 197.4,
+                "Est. Value ($10k)": 7.5,
+                "Est. Allocation (%)": 45.45,
+                "Current Price ($)": 232.23,
+                "Est. ROI (%)": 18.5
+            },
+            {
+                "Ticker": "KAI",
+                "Company": "KAI",
+                "Cost Basis ($)": 225.49,
+                "Est. Value ($10k)": 4.5,
+                "Est. Allocation (%)": 27.27,
+                "Current Price ($)": 265.28,
+                "Est. ROI (%)": 18.5
+            },
+            {
+                "Ticker": "GH",
+                "Company": "GH",
+                "Cost Basis ($)": 151.98,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 9.09,
+                "Current Price ($)": 178.8,
+                "Est. ROI (%)": 18.5
+            },
+            {
+                "Ticker": "NVDA",
+                "Company": "NVDA",
+                "Cost Basis ($)": 173.94,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 9.09,
+                "Current Price ($)": 204.64,
+                "Est. ROI (%)": 18.5
+            },
+            {
+                "Ticker": "PSKY",
+                "Company": "PSKY",
+                "Cost Basis ($)": 127.5,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 9.09,
+                "Current Price ($)": 150.0,
+                "Est. ROI (%)": 18.5
+            }
+        ],
+        "trades": [
+            {
+                "Filing Date": "2026-10-19",
+                "Trade Date": "2026-09-28",
+                "Ticker": "GH",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "TRANSACTION FOR GH (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-10-07",
+                "Trade Date": "2026-09-25",
+                "Ticker": "-",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR ASSET (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-25",
+                "Trade Date": "2026-09-02",
+                "Ticker": "DHR",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "TRANSACTION FOR DHR (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-10-14",
+                "Trade Date": "2026-08-31",
+                "Ticker": "NVDA",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "TRANSACTION FOR NVDA (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-25",
+                "Trade Date": "2026-08-31",
+                "Ticker": "DHR",
+                "Action": "🔴 Sale",
+                "Asset Class": "ST",
+                "Description": "TRANSACTION FOR DHR (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-22",
+                "Trade Date": "2026-07-23",
+                "Ticker": "-",
+                "Action": "🔴 Sale",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR ASSET (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-22",
+                "Trade Date": "2026-07-23",
+                "Ticker": "ADM",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR ADM (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-22",
+                "Trade Date": "2026-07-23",
+                "Ticker": "DHR",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR DHR (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-07",
+                "Trade Date": "2026-07-20",
+                "Ticker": "-",
+                "Action": "🔴 Sale",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR ASSET (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-04",
+                "Trade Date": "2026-07-17",
+                "Ticker": "PSKY",
+                "Action": "🔴 Sale",
+                "Asset Class": "ST",
+                "Description": "TRANSACTION FOR PSKY (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-22",
+                "Trade Date": "2026-06-23",
+                "Ticker": "DHR",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR DHR (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-22",
+                "Trade Date": "2026-06-12",
+                "Ticker": "ADM",
+                "Action": "🔴 Sale",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR ADM (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-22",
+                "Trade Date": "2024-07-29",
+                "Ticker": "KAI",
+                "Action": "🔴 Sale",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR KAI (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-22",
+                "Trade Date": "2024-07-27",
+                "Ticker": "DHR",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR DHR (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-22",
+                "Trade Date": "2024-07-20",
+                "Ticker": "DHR",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR DHR (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-22",
+                "Trade Date": "2024-07-08",
+                "Ticker": "DHR",
+                "Action": "🟢 Purchase",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR DHR (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-09-22",
+                "Trade Date": "2024-07-08",
+                "Ticker": "KAI",
+                "Action": "🔴 Sale",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR KAI (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-08-22",
+                "Trade Date": "2024-06-04",
+                "Ticker": "KAI",
+                "Action": "🔴 Sale",
+                "Asset Class": "Stock",
+                "Description": "TRANSACTION FOR KAI (Stock) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            }
+        ]
     },
     "Josh Gottheimer (D - House)": {
         "holdings": [
