@@ -12,17 +12,21 @@ def update_congress_dynamically():
         res = requests.get(url, timeout=25)
         if res.status_code == 200:
             raw_congress = res.json()
+            print(f"Success: Fetched {len(raw_congress)} total records from external API.")
+        else:
+            print(f"API Error: Status code {res.status_code}")
     except Exception as e:
         print(f"Error fetching congress data: {e}")
 
     five_years_ago = datetime.now() - timedelta(days=365 * 5)
 
+    # 核心修改：使用更宽松的关键词（如纯姓氏）进行匹配，防止 API 名字格式变动导致匹配失败
     target_politicians = {
-        "Nancy Pelosi (D - House)": "Nancy Pelosi",
-        "Tommy Tuberville (R - Senate)": "Tommy Tuberville",
-        "Mark Green (R - House)": "Mark Green",
-        "Dan Crenshaw (R - House)": "Dan Crenshaw",
-        "Josh Gottheimer (D - House)": "Josh Gottheimer",
+        "Nancy Pelosi (D - House)": "pelosi",
+        "Tommy Tuberville (R - Senate)": "tuberville",
+        "Mark Green (R - House)": "green",
+        "Dan Crenshaw (R - House)": "crenshaw",
+        "Josh Gottheimer (D - House)": "gottheimer",
     }
 
     os.makedirs("data", exist_ok=True)
@@ -31,7 +35,8 @@ def update_congress_dynamically():
     for member_key, search_name in target_politicians.items():
         member_trades = []
         for t in raw_congress:
-            if search_name.lower() in t.get("representative", "").lower():
+            # 只要 representative 字段中包含设定的关键词（全小写比对），就认定为该议员的交易
+            if search_name in str(t.get("representative", "")).lower():
                 trade_date_str = t.get("transaction_date") or t.get("disclosure_date")
                 if trade_date_str:
                     try:
@@ -40,6 +45,8 @@ def update_congress_dynamically():
                             member_trades.append(t)
                     except ValueError:
                         pass
+
+        print(f"-> Found {len(member_trades)} trades for {member_key} in the last 5 years.")
 
         formatted_trades = []
         ticker_activity = {}
@@ -67,7 +74,7 @@ def update_congress_dynamically():
         dynamic_holdings = []
         sorted_tickers = sorted(ticker_activity.items(), key=lambda x: x[1], reverse=True)[:6]
         
-        # 兜底：如果 API 没拉到数据，提供一个默认数据防止出错
+        # 兜底数据（仅在完全匹配不到任何记录时触发）
         if not sorted_tickers:
             sorted_tickers = [("NVDA", 1)]
             formatted_trades = [{
@@ -88,7 +95,7 @@ def update_congress_dynamically():
                 "Company": f"{ticker} (Dynamic)",
                 "Est. Cost Basis ($)": 100.0,
                 "Est. Value ($10k)": 1000,
-                "Est. Allocation (%)": round(100 / len(sorted_tickers), 2),
+                "Est. Allocation (%)": round(100 / max(len(sorted_tickers), 1), 2),
             })
 
         formatted_trades.sort(key=lambda x: x.get("Filing Date") or "", reverse=True)
@@ -100,7 +107,7 @@ def update_congress_dynamically():
 
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
-    print("Successfully generated congress_data.json")
+    print("Successfully generated dynamic congress_data.json")
 
 if __name__ == "__main__":
     update_congress_dynamically()
