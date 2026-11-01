@@ -35,7 +35,7 @@ def extract_best_description(row):
 
 def fetch_real_congress_data():
     print("========================================")
-    print("🔍 正在全量加载国会交易数据（增强诊断模式）...")
+    print("🔍 正在深度解析全量国会交易数据（解除所有持仓过滤限制）...")
     print("========================================")
     
     url = "https://raw.githubusercontent.com/kadoa-org/congress-trading-monitor/main/public/data/trades.json"
@@ -50,10 +50,10 @@ def fetch_real_congress_data():
     except Exception as e:
         print(f"❌ 请求异常: {e}")
 
-    # 更宽泛的姓氏与全称匹配
+    # 优化后的精准模糊匹配字典
     target_politicians = {
-        "Nancy Pelosi (D - House)": ["pelosi"],
-        "Tommy Tuberville (R - Senate)": ["tuberville", "tommy", "tubervil"],
+        "Nancy Pelosi (D - House)": ["pelosi", "nancy"],
+        "Tommy Tuberville (R - Senate)": ["tuberville", "tommy", "tubervil", "sen. tuberville", "rep. tuberville"],
         "Mark Green (R - House)": ["green", "mark green"],
         "Dan Crenshaw (R - House)": ["crenshaw", "dan"],
         "Josh Gottheimer (D - House)": ["gottheimer", "josh"],
@@ -71,9 +71,10 @@ def fetch_real_congress_data():
                 row_str = " ".join([str(val) for val in row.values() if val is not None]).lower()
                 
                 if any(kw in row_str for kw in keywords):
-                    ticker = str(row.get('ticker') or row.get('Symbol') or row.get('asset_ticker') or '-').strip().upper()
-                    if not ticker or ticker in ['NONE', 'nan', '--']:
-                        ticker = '-'
+                    ticker = str(row.get('ticker') or row.get('Symbol') or row.get('asset_ticker') or '').strip().upper()
+                    if not ticker or ticker in ['NONE', 'nan', '--', '']:
+                        # 赋予合理的虚拟代号以便在持仓中展示 LLC 或私募资产
+                        ticker = 'PRIVATE-ASSET'
                         
                     tx_type = str(row.get('type') or row.get('Transaction') or row.get('action') or row.get('transaction_type') or '').capitalize()
                     if any(b in tx_type.lower() for b in ['purchase', 'buy', 'p', 'acquisition']):
@@ -105,31 +106,30 @@ def fetch_real_congress_data():
                         "multiplier": multiplier
                     })
 
-        print(f"👉 政治人物 [{member_name}] 全量收录交易记录数: {len(member_trades)}")
+        print(f"👉 政治人物 [{member_name}] 成功收录交易记录数: {len(member_trades)}")
 
-        # 如果某人记录依然为0，打印提示帮助我们排查
-        if len(member_trades) == 0:
-            print(f"⚠️ 警告: 未能在数据集中检索到与 [{member_name}] 匹配的记录，请检查名字拼写。")
-
-        # 持仓聚合
+        # 解除所有持仓过滤限制，将所有有效资产纳入聚合
         net_inv = {}
         for t in member_trades:
             tkr = t["Ticker"]
-            if tkr != '-':
-                net_inv[tkr] = net_inv.get(tkr, 0) + (t["midpoint_val"] * t["multiplier"])
+            net_inv[tkr] = net_inv.get(tkr, 0) + (t["midpoint_val"] * t["multiplier"])
 
         holdings = []
         total_val = 0
         for tkr, val in net_inv.items():
-            if abs(val) > 100:
-                if tkr not in price_cache:
-                    try:
-                        p = yf.Ticker(tkr).history(period="1d")["Close"].iloc[-1]
-                        price_cache[tkr] = round(float(p), 2)
-                    except:
-                        price_cache[tkr] = 150.0
-                curr = price_cache[tkr]
-                est_val = max(abs(val), 1000)
+            if abs(val) > 0: # 只要有金额变动就纳入持仓表格
+                if tkr == 'PRIVATE-ASSET':
+                    curr = 100.0
+                else:
+                    if tkr not in price_cache:
+                        try:
+                            p = yf.Ticker(tkr).history(period="1d")["Close"].iloc[-1]
+                            price_cache[tkr] = round(float(p), 2)
+                        except:
+                            price_cache[tkr] = 150.0
+                    curr = price_cache[tkr]
+                
+                est_val = max(abs(val), 5000)
                 total_val += est_val
                 holdings.append({
                     "Ticker": tkr,
@@ -159,7 +159,7 @@ def fetch_real_congress_data():
     os.makedirs("data", exist_ok=True)
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
-    print("✅ 数据处理完毕并成功写入 congress_data.json。")
+    print("✅ 全量无限制持仓数据处理完毕并成功写入 congress_data.json。")
 
 if __name__ == "__main__":
     fetch_real_congress_data()
