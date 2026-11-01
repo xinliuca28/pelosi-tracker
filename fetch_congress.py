@@ -43,9 +43,7 @@ def fetch_real_congress_data():
     except Exception as e:
         print(f"❌ 请求异常: {e}")
 
-    df = pd.DataFrame(raw_trades)
-    
-    # 核心关注的政要关键词映射
+    # 直接使用原生字典列表进行遍历，彻底避开 pandas Series/ndarray 的冲突
     target_politicians = {
         "Nancy Pelosi (D - House)": ["pelosi"],
         "Tommy Tuberville (R - Senate)": ["tuberville"],
@@ -59,12 +57,13 @@ def fetch_real_congress_data():
 
     for member_name, keywords in target_politicians.items():
         member_trades = []
-        if not df.empty:
-            for _, row in df.iterrows():
-                # 将整行所有字段的值拼成一个小写字符串，实现全文本模糊匹配，避免漏掉任何列名
+        if raw_trades and isinstance(raw_trades, list):
+            for row in raw_trades:
+                if not isinstance(row, dict):
+                    continue
+                # 将整行所有字段的值拼成一个小写字符串进行模糊匹配
                 row_str = " ".join([str(val) for val in row.values() if val is not None]).lower()
                 
-                # 检查是否包含当前政客的名字
                 if any(kw in row_str for kw in keywords):
                     ticker = str(row.get('ticker') or row.get('Symbol') or row.get('asset_ticker') or '').strip().upper()
                     if not ticker or ticker in ['N/A', '--', 'NONE', 'nan']:
@@ -78,7 +77,7 @@ def fetch_real_congress_data():
                         action = "🔴 Sale"
                         multiplier = -1
                     else:
-                        action = "🟢 Purchase" # 默认归类
+                        action = "🟢 Purchase"
                         multiplier = 1
                         
                     filing_date = str(row.get('disclosure_date') or row.get('filing_date') or row.get('FilingDate') or '2026-01-01')
@@ -100,7 +99,7 @@ def fetch_real_congress_data():
 
         print(f"👉 政治人物 [{member_name}] 成功匹配到真实交易记录数: {len(member_trades)}")
 
-        # 计算动态持仓
+        # 计算动态持仓与 ROI
         net_inv = {}
         for t in member_trades:
             net_inv[t["Ticker"]] = net_inv.get(t["Ticker"], 0) + (t["midpoint_val"] * t["multiplier"])
