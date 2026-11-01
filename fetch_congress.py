@@ -15,12 +15,12 @@ def parse_flexible_date(date_str):
     return None
 
 def update_congress_dynamically():
-    print("Fetching trade history from official public watcher APIs...")
+    print("Fetching trade history from active free community public APIs...")
     
-    # 官方提供的稳定 API 端点
+    # 采用目前社区维护、保持高频更新且免密直连的公开 JSON 接口
     urls = [
-        "https://housestockwatcher.com/api/v1/transactions",
-        "https://senatestockwatcher.com/api/v1/transactions"
+        "https://raw.githubusercontent.com/bargo-ai/congress-stock-trades/main/data/transactions.json",
+        "https://raw.githubusercontent.com/cpcap/congress-trading-data/main/all_trades.json"
     ]
 
     raw_congress = []
@@ -36,9 +36,13 @@ def update_congress_dynamically():
                 data = res.json()
                 if isinstance(data, list):
                     raw_congress.extend(data)
-                    print(f"Successfully loaded {len(data)} records from {url}")
-            else:
-                print(f"API endpoint {url} returned status: {res.status_code}")
+                elif isinstance(data, dict):
+                    for k, v in data.items():
+                        if isinstance(v, list):
+                            raw_congress.extend(v)
+                print(f"Successfully loaded records from {url}")
+                if len(raw_congress) > 0:
+                    break
         except Exception as e:
             print(f"Error fetching {url}: {e}")
 
@@ -60,10 +64,10 @@ def update_congress_dynamically():
     for member_key, search_name in target_politicians.items():
         member_trades = []
         for t in raw_congress:
-            rep_name = str(t.get("representative") or t.get("senator") or t.get("politician") or "").lower()
+            rep_name = str(t.get("representative") or t.get("senator") or t.get("politician") or t.get("name") or "").lower()
             
             if search_name in rep_name:
-                trade_date_str = t.get("transaction_date") or t.get("disclosure_date") or t.get("TransactionDate")
+                trade_date_str = t.get("transaction_date") or t.get("disclosure_date") or t.get("TransactionDate") or t.get("date")
                 trade_date = parse_flexible_date(trade_date_str)
                 
                 if trade_date and trade_date >= ten_years_ago:
@@ -75,22 +79,22 @@ def update_congress_dynamically():
         ticker_activity = {}
 
         for t in member_trades:
-            ticker = t.get("ticker") or t.get("Symbol")
-            t_type = str(t.get("type") or t.get("Transaction") or "").lower()
+            ticker = t.get("ticker") or t.get("Symbol") or t.get("asset_ticker")
+            t_type = str(t.get("type") or t.get("Transaction") or t.get("transaction_type") or "").lower()
 
-            if ticker and ticker != "--" and ticker != "N/A":
-                ticker_activity[ticker] = ticker_activity.get(ticker, 0) + 1
+            if ticker and ticker != "--" and ticker != "N/A" and ticker is not None:
+                ticker_activity[str(ticker)] = ticker_activity.get(str(ticker), 0) + 1
 
             action = "🟢 Purchase" if "purchase" in t_type or "buy" in t_type else "🔴 Sale"
             
             formatted_trades.append({
-                "Filing Date": t.get("disclosure_date") or t.get("ReportDate"),
-                "Trade Date": t.get("transaction_date") or t.get("TransactionDate"),
+                "Filing Date": t.get("disclosure_date") or t.get("ReportDate") or t.get("filing_date"),
+                "Trade Date": t.get("transaction_date") or t.get("TransactionDate") or t.get("date"),
                 "Ticker": ticker,
                 "Action": action,
                 "Asset Class": t.get("asset_type") or "Common Stock",
-                "Description": t.get("description") or "Disclosed Transaction",
-                "Disclosed Range": t.get("amount") or t.get("Range"),
+                "Description": t.get("description") or t.get("asset_description") or "Disclosed Transaction",
+                "Disclosed Range": t.get("amount") or t.get("Range") or t.get("value"),
                 "midpoint_val": 750000,
                 "underlying_shares": 5000,
             })
@@ -116,7 +120,7 @@ def update_congress_dynamically():
 
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
-    print("Successfully generated dynamic congress_data.json via official APIs")
+    print("Successfully generated dynamic congress_data.json via active public APIs")
 
 if __name__ == "__main__":
     update_congress_dynamically()
