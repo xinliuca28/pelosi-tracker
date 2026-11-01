@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests pandas
+          pip install -r requirements.txt
 
       - name: Run Congress 5-Year Fetcher
         env:
