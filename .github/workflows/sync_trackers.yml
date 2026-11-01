@@ -1,27 +1,37 @@
-name: Auto-Sync All Trackers Data
+name: Run Fetch All Trackers
 
 on:
   schedule:
-    - cron: '0 8 * * *' # 每天自动运行一次
-  workflow_dispatch:
+    - cron: '0 8 * * *' # 每天北京时间下午 4 点（UTC 8点）自动运行一次
+  workflow_dispatch: # 允许你在网页端手动点击按钮立即运行
 
 jobs:
-  sync:
+  run-script:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # 赋予 GitHub 机器人自动提交并推送代码的权限
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
+
       - name: Install dependencies
-        run: pip install pandas requests
-      - name: Run data sync script
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pandas
+
+      - name: Run fetch script
         run: python fetch_all_trackers.py
-      - name: Commit and push changes
+
+      - name: Commit and push generated data
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/trackers_data.json
-          git commit -m "chore: auto-update tracker disclosures from external APIs" || exit 0
+          git add data/
+          # 检查是否有改动，有改动才提交，没有改动则直接跳过避免报错
+          git diff --staged --quiet || git commit -m "chore: auto-update trackers json data from api"
           git push
