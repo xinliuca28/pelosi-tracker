@@ -1,67 +1,22 @@
 {
-    "Nancy Pelosi (D - House)": [
-        {
-            "Filing Date": "2026-10-02",
-            "Trade Date": "2026-09-08",
-            "Ticker": "NVDA",
-            "Action": "🟢 Purchase",
-            "Asset Class": "Common Stock",
-            "Description": "Fallback 5-Year Disclosed Record",
-            "Disclosed Range": "$500k - $1M",
-            "midpoint_val": 750000,
-            "underlying_shares": 5000
-        }
-    ],
-    "Tommy Tuberville (R - Senate)": [
-        {
-            "Filing Date": "2026-10-02",
-            "Trade Date": "2026-09-08",
-            "Ticker": "NVDA",
-            "Action": "🟢 Purchase",
-            "Asset Class": "Common Stock",
-            "Description": "Fallback 5-Year Disclosed Record",
-            "Disclosed Range": "$500k - $1M",
-            "midpoint_val": 750000,
-            "underlying_shares": 5000
-        }
-    ],
-    "Mark Green (R - House)": [
-        {
-            "Filing Date": "2026-10-02",
-            "Trade Date": "2026-09-08",
-            "Ticker": "NVDA",
-            "Action": "🟢 Purchase",
-            "Asset Class": "Common Stock",
-            "Description": "Fallback 5-Year Disclosed Record",
-            "Disclosed Range": "$500k - $1M",
-            "midpoint_val": 750000,
-            "underlying_shares": 5000
-        }
-    ],
-    "Dan Crenshaw (R - House)": [
-        {
-            "Filing Date": "2026-10-02",
-            "Trade Date": "2026-09-08",
-            "Ticker": "NVDA",
-            "Action": "🟢 Purchase",
-            "Asset Class": "Common Stock",
-            "Description": "Fallback 5-Year Disclosed Record",
-            "Disclosed Range": "$500k - $1M",
-            "midpoint_val": 750000,
-            "underlying_shares": 5000
-        }
-    ],
-    "Josh Gottheimer (D - House)": [
-        {
-            "Filing Date": "2026-10-02",
-            "Trade Date": "2026-09-08",
-            "Ticker": "NVDA",
-            "Action": "🟢 Purchase",
-            "Asset Class": "Common Stock",
-            "Description": "Fallback 5-Year Disclosed Record",
-            "Disclosed Range": "$500k - $1M",
-            "midpoint_val": 750000,
-            "underlying_shares": 5000
-        }
-    ]
+    "Nancy Pelosi (D - House)": {
+        "holdings": [],
+        "trades": []
+    },
+    "Tommy Tuberville (R - Senate)": {
+        "holdings": [],
+        "trades": []
+    },
+    "Mark Green (R - House)": {
+        "holdings": [],
+        "trades": []
+    },
+    "Dan Crenshaw (R - House)": {
+        "holdings": [],
+        "trades": []
+    },
+    "Josh Gottheimer (D - House)": {
+        "holdings": [],
+        "trades": []
+    }
 }
