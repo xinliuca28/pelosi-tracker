@@ -15,12 +15,13 @@ def parse_flexible_date(date_str):
     return None
 
 def update_congress_dynamically():
-    print("Fetching trade history from active free community public APIs...")
+    print("Fetching trade history from robust multi-source public APIs...")
     
-    # 采用目前社区维护、保持高频更新且免密直连的公开 JSON 接口
-    urls = [
-        "https://raw.githubusercontent.com/bargo-ai/congress-stock-trades/main/data/transactions.json",
-        "https://raw.githubusercontent.com/cpcap/congress-trading-data/main/all_trades.json"
+    # 覆盖多个高可用、免密直连的开源公共数据源
+    api_endpoints = [
+        "https://raw.githubusercontent.com/fja05680/congressional-stock-watcher-data/master/data/all_transactions.json",
+        "https://raw.githubusercontent.com/ucsb-seclab/congress-stock-watcher/main/data/all_transactions.json",
+        "https://house-stock-watcher-data.s3.amazonaws.com/data/all_transactions.json"
     ]
 
     raw_congress = []
@@ -29,22 +30,28 @@ def update_congress_dynamically():
         'Accept': 'application/json'
     }
 
-    for url in urls:
+    for url in api_endpoints:
         try:
-            res = requests.get(url, headers=headers, timeout=30)
+            print(f"Trying endpoint: {url}")
+            res = requests.get(url, headers=headers, timeout=15)
             if res.status_code == 200:
                 data = res.json()
-                if isinstance(data, list):
-                    raw_congress.extend(data)
+                if isinstance(data, list) and len(data) > 0:
+                    raw_congress = data
+                    print(f"Success! Loaded {len(raw_congress)} records from {url}")
+                    break
                 elif isinstance(data, dict):
                     for k, v in data.items():
-                        if isinstance(v, list):
-                            raw_congress.extend(v)
-                print(f"Successfully loaded records from {url}")
-                if len(raw_congress) > 0:
-                    break
+                        if isinstance(v, list) and len(v) > 0:
+                            raw_congress = v
+                            print(f"Success! Loaded {len(raw_congress)} records from dict key '{k}'")
+                            break
+                    if len(raw_congress) > 0:
+                        break
+            else:
+                print(f"Endpoint returned status code: {res.status_code}")
         except Exception as e:
-            print(f"Error fetching {url}: {e}")
+            print(f"Connection error with {url}: {e}")
 
     print(f"Total collected raw records: {len(raw_congress)}")
 
@@ -120,7 +127,7 @@ def update_congress_dynamically():
 
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
-    print("Successfully generated dynamic congress_data.json via active public APIs")
+    print("Successfully generated dynamic congress_data.json")
 
 if __name__ == "__main__":
     update_congress_dynamically()
