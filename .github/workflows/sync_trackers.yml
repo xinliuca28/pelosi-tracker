@@ -11,10 +11,10 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4  # 升级至 v4，消除 Node.js 警告
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5  # 升级至 v5
         with:
           python-version: '3.10'
 
@@ -23,11 +23,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests pandas
 
-      # 依次运行两个独立的外部数据源脚本
       - name: Run Congress 5-Year Fetcher
         run: python fetch_congress.py
 
       - name: Run Buffett 13F Fetcher
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}  # 确保传入 API Key
         run: python fetch_buffett.py
 
       - name: Commit and push data changes
@@ -35,5 +36,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data/
-          git diff --staged --quiet || git commit -m "chore: auto-update separated external tracker data"
+          git diff --staged --quiet || git commit -m "chore: auto-update tracker data via API"
           git push
