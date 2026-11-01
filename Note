@@ -1,0 +1,6 @@
+    target_politicians = {
+        "Nancy Pelosi (D - House)": {"focus": ["NVDA", "AAPL", "GOOGL"], "bias": "Purchase"},
+        "Tommy Tuberville (R - Senate)": {"focus": ["MSFT", "AMZN"], "bias": "Sale"},
+        "Mark Green (R - House)": {"focus": ["GOOGL", "META"], "bias": "Purchase"},
+        "Dan Crenshaw (R - House)": {"focus": ["NVDA", "MSFT"], "bias": "Purchase"},
+        "Josh Gottheimer (D - House)": {"focus": ["AAPL", "AMZN"], "bias": "Sale"},
