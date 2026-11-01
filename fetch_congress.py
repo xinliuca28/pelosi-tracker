@@ -15,13 +15,12 @@ def parse_flexible_date(date_str):
     return None
 
 def update_congress_dynamically():
-    print("Fetching trade history from public endpoints...")
+    print("Fetching trade history from open community mirror API...")
     
-    # 尝试多个备用镜像源
-    urls = [
-        "https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json",
-        "https://senate-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json"
-    ]
+    # 切换为目前稳定、免费的开源社区 JSON 镜像数据源
+    url = "https://hugging-face.cn/datasets/seralifatih/us-congress-stock-trades-2025/raw/main/all_transactions.json"
+    # 备用直连源
+    backup_url = "https://raw.githubusercontent.com/seralifatih/congress-stock-trades-mirror/main/all_transactions.json"
 
     raw_congress = []
     headers = {
@@ -29,27 +28,24 @@ def update_congress_dynamically():
         'Accept': 'application/json'
     }
 
-    for url in urls:
-        try:
-            res = requests.get(url, headers=headers, timeout=30)
-            if res.status_code == 200:
-                data = res.json()
-                if isinstance(data, list):
-                    raw_congress.extend(data)
-                    print(f"Loaded {len(data)} records from {url.split('/')[-2]}")
-                elif isinstance(data, dict):
-                    # 如果返回的是字典，尝试提取里面的列表数据
-                    for key, val in data.items():
-                        if isinstance(val, list):
-                            raw_congress.extend(val)
-                            print(f"Loaded {len(val)} records from dict key '{key}'")
-                            break
-            else:
-                print(f"Failed to fetch {url}, status: {res.status_code}")
-        except Exception as e:
-            print(f"Error with {url}: {e}")
-
-    print(f"Total raw records collected: {len(raw_congress)}")
+    try:
+        res = requests.get(url, headers=headers, timeout=30)
+        if res.status_code != 200:
+            res = requests.get(backup_url, headers=headers, timeout=30)
+            
+        if res.status_code == 200:
+            data = res.json()
+            if isinstance(data, list):
+                raw_congress = data
+            elif isinstance(data, dict):
+                for k, v in data.items():
+                    if isinstance(v, list):
+                        raw_congress.extend(v)
+            print(f"Success: Loaded {len(raw_congress)} records from community mirror.")
+        else:
+            print(f"Failed to fetch mirror, status: {res.status_code}")
+    except Exception as e:
+        print(f"Error fetching community mirror: {e}")
 
     ten_years_ago = datetime.now() - timedelta(days=365 * 10)
 
@@ -67,10 +63,11 @@ def update_congress_dynamically():
     for member_key, search_name in target_politicians.items():
         member_trades = []
         for t in raw_congress:
-            rep_name = str(t.get("representative") or t.get("senator") or "").lower()
+            # 兼容各种字段命名
+            rep_name = str(t.get("representative") or t.get("senator") or t.get("politician") or "").lower()
             
             if search_name in rep_name:
-                trade_date_str = t.get("transaction_date") or t.get("disclosure_date")
+                trade_date_str = t.get("transaction_date") or t.get("disclosure_date") or t.get("TransactionDate")
                 trade_date = parse_flexible_date(trade_date_str)
                 
                 if trade_date and trade_date >= ten_years_ago:
@@ -82,8 +79,8 @@ def update_congress_dynamically():
         ticker_activity = {}
 
         for t in member_trades:
-            ticker = t.get("ticker")
-            t_type = str(t.get("type", "")).lower()
+            ticker = t.get("ticker") or t.get("Symbol")
+            t_type = str(t.get("type") or t.get("Transaction") or "").lower()
 
             if ticker and ticker != "--" and ticker != "N/A":
                 ticker_activity[ticker] = ticker_activity.get(ticker, 0) + 1
@@ -91,13 +88,13 @@ def update_congress_dynamically():
             action = "🟢 Purchase" if "purchase" in t_type or "buy" in t_type else "🔴 Sale"
             
             formatted_trades.append({
-                "Filing Date": t.get("disclosure_date"),
-                "Trade Date": t.get("transaction_date"),
+                "Filing Date": t.get("disclosure_date") or t.get("ReportDate"),
+                "Trade Date": t.get("transaction_date") or t.get("TransactionDate"),
                 "Ticker": ticker,
                 "Action": action,
-                "Asset Class": t.get("asset_type", "Common Stock"),
-                "Description": t.get("description", "Disclosed Transaction"),
-                "Disclosed Range": t.get("amount"),
+                "Asset Class": t.get("asset_type") or "Common Stock",
+                "Description": t.get("description") or "Disclosed Transaction",
+                "Disclosed Range": t.get("amount") or t.get("Range"),
                 "midpoint_val": 750000,
                 "underlying_shares": 5000,
             })
@@ -123,7 +120,7 @@ def update_congress_dynamically():
 
     with open("data/congress_data.json", "w", encoding="utf-8") as f:
         json.dump(congress_export, f, indent=4, ensure_ascii=False)
-    print("Successfully generated dynamic congress_data.json")
+    print("Successfully generated dynamic congress_data.json from community API")
 
 if __name__ == "__main__":
     update_congress_dynamically()
