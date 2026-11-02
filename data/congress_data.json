@@ -13,19 +13,19 @@
             {
                 "Ticker": "BE",
                 "Company": "BE",
-                "Cost Basis ($)": 172.69,
+                "Cost Basis ($)": 172.81,
                 "Est. Value ($10k)": 3.0,
                 "Est. Allocation (%)": 33.33,
-                "Current Price ($)": 203.17,
+                "Current Price ($)": 203.31,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "INTC",
                 "Company": "INTC",
-                "Cost Basis ($)": 55.9,
+                "Cost Basis ($)": 52.73,
                 "Est. Value ($10k)": 3.0,
                 "Est. Allocation (%)": 33.33,
-                "Current Price ($)": 65.76,
+                "Current Price ($)": 62.03,
                 "Est. ROI (%)": 18.5
             }
         ],
@@ -101,10 +101,10 @@
             {
                 "Ticker": "GRBK",
                 "Company": "GRBK",
-                "Cost Basis ($)": 51.73,
+                "Cost Basis ($)": 53.35,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 100.0,
-                "Current Price ($)": 60.86,
+                "Current Price ($)": 62.77,
                 "Est. ROI (%)": 18.5
             }
         ],
@@ -166,37 +166,37 @@
             {
                 "Ticker": "DHR",
                 "Company": "DHR",
-                "Cost Basis ($)": 197.4,
+                "Cost Basis ($)": 194.93,
                 "Est. Value ($10k)": 7.5,
                 "Est. Allocation (%)": 41.67,
-                "Current Price ($)": 232.23,
+                "Current Price ($)": 229.33,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "KAI",
                 "Company": "KAI",
-                "Cost Basis ($)": 225.49,
+                "Cost Basis ($)": 241.01,
                 "Est. Value ($10k)": 4.5,
                 "Est. Allocation (%)": 25.0,
-                "Current Price ($)": 265.28,
+                "Current Price ($)": 283.54,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "GH",
                 "Company": "GH",
-                "Cost Basis ($)": 151.98,
+                "Cost Basis ($)": 145.14,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 8.33,
-                "Current Price ($)": 178.8,
+                "Current Price ($)": 170.75,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "NVDA",
                 "Company": "NVDA",
-                "Cost Basis ($)": 173.94,
+                "Cost Basis ($)": 175.13,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 8.33,
-                "Current Price ($)": 204.64,
+                "Current Price ($)": 206.03,
                 "Est. ROI (%)": 18.5
             },
             {
@@ -406,82 +406,82 @@
             {
                 "Ticker": "GOOGN",
                 "Company": "GOOGN",
-                "Cost Basis ($)": 35.18,
+                "Cost Basis ($)": 35.37,
                 "Est. Value ($10k)": 3.0,
                 "Est. Allocation (%)": 14.29,
-                "Current Price ($)": 41.39,
+                "Current Price ($)": 41.61,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "MCD",
                 "Company": "MCD",
-                "Cost Basis ($)": 219.4,
+                "Cost Basis ($)": 223.86,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 258.12,
+                "Current Price ($)": 263.36,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "QSR",
                 "Company": "QSR",
-                "Cost Basis ($)": 61.55,
+                "Cost Basis ($)": 62.65,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 72.41,
+                "Current Price ($)": 73.7,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "RSG",
                 "Company": "RSG",
-                "Cost Basis ($)": 207.43,
+                "Cost Basis ($)": 206.8,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 244.04,
+                "Current Price ($)": 243.29,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "GOOGM",
                 "Company": "GOOGM",
-                "Cost Basis ($)": 35.1,
+                "Cost Basis ($)": 35.33,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 41.29,
+                "Current Price ($)": 41.56,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "CCI",
                 "Company": "CCI",
-                "Cost Basis ($)": 75.39,
+                "Cost Basis ($)": 73.98,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 88.69,
+                "Current Price ($)": 87.03,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "SAIL",
                 "Company": "SAIL",
-                "Cost Basis ($)": 17.9,
+                "Cost Basis ($)": 17.14,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 21.06,
+                "Current Price ($)": 20.16,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "NICE",
                 "Company": "NICE",
-                "Cost Basis ($)": 96.7,
+                "Cost Basis ($)": 98.26,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 113.76,
+                "Current Price ($)": 115.6,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "MNST",
                 "Company": "MNST",
-                "Cost Basis ($)": 40.24,
+                "Cost Basis ($)": 40.83,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 47.34,
+                "Current Price ($)": 48.03,
                 "Est. ROI (%)": 18.5
             },
             {
@@ -496,28 +496,28 @@
             {
                 "Ticker": "PANW",
                 "Company": "PANW",
-                "Cost Basis ($)": 310.99,
+                "Cost Basis ($)": 307.38,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 365.87,
+                "Current Price ($)": 361.62,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "CRWD",
                 "Company": "CRWD",
-                "Cost Basis ($)": 212.87,
+                "Cost Basis ($)": 210.08,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 250.43,
+                "Current Price ($)": 247.15,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "FN",
                 "Company": "FN",
-                "Cost Basis ($)": 278.2,
+                "Cost Basis ($)": 273.22,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 327.29,
+                "Current Price ($)": 321.43,
                 "Est. ROI (%)": 18.5
             }
         ],
