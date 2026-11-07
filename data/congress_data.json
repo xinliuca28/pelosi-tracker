@@ -13,19 +13,19 @@
             {
                 "Ticker": "BE",
                 "Company": "BE",
-                "Cost Basis ($)": 148.44,
+                "Cost Basis ($)": 147.25,
                 "Est. Value ($10k)": 3.0,
                 "Est. Allocation (%)": 33.33,
-                "Current Price ($)": 174.63,
+                "Current Price ($)": 173.24,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "INTC",
                 "Company": "INTC",
-                "Cost Basis ($)": 46.73,
+                "Cost Basis ($)": 47.84,
                 "Est. Value ($10k)": 3.0,
                 "Est. Allocation (%)": 33.33,
-                "Current Price ($)": 54.98,
+                "Current Price ($)": 56.28,
                 "Est. ROI (%)": 18.5
             }
         ],
@@ -101,10 +101,10 @@
             {
                 "Ticker": "GRBK",
                 "Company": "GRBK",
-                "Cost Basis ($)": 55.84,
+                "Cost Basis ($)": 55.1,
                 "Est. Value ($10k)": 1.5,
                 "Est. Allocation (%)": 100.0,
-                "Current Price ($)": 65.7,
+                "Current Price ($)": 64.82,
                 "Est. ROI (%)": 18.5
             }
         ],
@@ -166,37 +166,37 @@
             {
                 "Ticker": "DHR",
                 "Company": "DHR",
-                "Cost Basis ($)": 192.75,
+                "Cost Basis ($)": 195.71,
                 "Est. Value ($10k)": 7.5,
-                "Est. Allocation (%)": 41.67,
-                "Current Price ($)": 226.76,
+                "Est. Allocation (%)": 38.46,
+                "Current Price ($)": 230.25,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "KAI",
                 "Company": "KAI",
-                "Cost Basis ($)": 252.88,
+                "Cost Basis ($)": 248.83,
                 "Est. Value ($10k)": 4.5,
-                "Est. Allocation (%)": 25.0,
-                "Current Price ($)": 297.5,
-                "Est. ROI (%)": 18.5
-            },
-            {
-                "Ticker": "GH",
-                "Company": "GH",
-                "Cost Basis ($)": 122.77,
-                "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 8.33,
-                "Current Price ($)": 144.43,
+                "Est. Allocation (%)": 23.08,
+                "Current Price ($)": 292.74,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "NVDA",
                 "Company": "NVDA",
-                "Cost Basis ($)": 159.88,
+                "Cost Basis ($)": 158.64,
+                "Est. Value ($10k)": 3.0,
+                "Est. Allocation (%)": 15.38,
+                "Current Price ($)": 186.64,
+                "Est. ROI (%)": 18.5
+            },
+            {
+                "Ticker": "GH",
+                "Company": "GH",
+                "Cost Basis ($)": 128.24,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 8.33,
-                "Current Price ($)": 188.09,
+                "Est. Allocation (%)": 7.69,
+                "Current Price ($)": 150.87,
                 "Est. ROI (%)": 18.5
             },
             {
@@ -204,7 +204,7 @@
                 "Company": "PRIVATE-ASSET",
                 "Cost Basis ($)": 85.0,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 8.33,
+                "Est. Allocation (%)": 7.69,
                 "Current Price ($)": 100.0,
                 "Est. ROI (%)": 18.5
             },
@@ -213,7 +213,7 @@
                 "Company": "PSKY",
                 "Cost Basis ($)": 127.5,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 8.33,
+                "Est. Allocation (%)": 7.69,
                 "Current Price ($)": 150.0,
                 "Est. ROI (%)": 18.5
             }
@@ -226,6 +226,16 @@
                 "Action": "🟢 Purchase",
                 "Asset Class": "ST",
                 "Description": "TRANSACTION FOR GH (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-11-05",
+                "Trade Date": "2026-09-25",
+                "Ticker": "NVDA",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "TRANSACTION FOR NVDA (ST) VIA PUBLIC DISCLOSURE",
                 "Disclosed Range": "$500,001 - $1,000,000",
                 "midpoint_val": 15000
             },
@@ -406,82 +416,109 @@
             {
                 "Ticker": "GOOGN",
                 "Company": "GOOGN",
-                "Cost Basis ($)": 35.67,
+                "Cost Basis ($)": 35.58,
                 "Est. Value ($10k)": 3.0,
-                "Est. Allocation (%)": 14.29,
-                "Current Price ($)": 41.97,
+                "Est. Allocation (%)": 11.76,
+                "Current Price ($)": 41.86,
+                "Est. ROI (%)": 18.5
+            },
+            {
+                "Ticker": "AMAT",
+                "Company": "AMAT",
+                "Cost Basis ($)": 282.81,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 5.88,
+                "Current Price ($)": 332.72,
+                "Est. ROI (%)": 18.5
+            },
+            {
+                "Ticker": "TLK",
+                "Company": "TLK",
+                "Cost Basis ($)": 9.45,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 5.88,
+                "Current Price ($)": 11.12,
+                "Est. ROI (%)": 18.5
+            },
+            {
+                "Ticker": "BHE",
+                "Company": "BHE",
+                "Cost Basis ($)": 51.34,
+                "Est. Value ($10k)": 1.5,
+                "Est. Allocation (%)": 5.88,
+                "Current Price ($)": 60.4,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "MCD",
                 "Company": "MCD",
-                "Cost Basis ($)": 236.3,
+                "Cost Basis ($)": 235.04,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 278.0,
+                "Est. Allocation (%)": 5.88,
+                "Current Price ($)": 276.52,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "QSR",
                 "Company": "QSR",
-                "Cost Basis ($)": 66.57,
+                "Cost Basis ($)": 66.04,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 78.32,
+                "Est. Allocation (%)": 5.88,
+                "Current Price ($)": 77.69,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "RSG",
                 "Company": "RSG",
-                "Cost Basis ($)": 208.43,
+                "Cost Basis ($)": 209.82,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 245.21,
+                "Est. Allocation (%)": 5.88,
+                "Current Price ($)": 246.85,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "GOOGM",
                 "Company": "GOOGM",
-                "Cost Basis ($)": 35.67,
+                "Cost Basis ($)": 35.51,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 41.97,
+                "Est. Allocation (%)": 5.88,
+                "Current Price ($)": 41.78,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "CCI",
                 "Company": "CCI",
-                "Cost Basis ($)": 76.98,
+                "Cost Basis ($)": 75.31,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 90.56,
+                "Est. Allocation (%)": 5.88,
+                "Current Price ($)": 88.6,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "SAIL",
                 "Company": "SAIL",
-                "Cost Basis ($)": 15.82,
+                "Cost Basis ($)": 16.33,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 18.61,
+                "Est. Allocation (%)": 5.88,
+                "Current Price ($)": 19.21,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "NICE",
                 "Company": "NICE",
-                "Cost Basis ($)": 79.98,
+                "Cost Basis ($)": 81.73,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 94.09,
+                "Est. Allocation (%)": 5.88,
+                "Current Price ($)": 96.15,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "MNST",
                 "Company": "MNST",
-                "Cost Basis ($)": 38.82,
+                "Cost Basis ($)": 38.86,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 45.67,
+                "Est. Allocation (%)": 5.88,
+                "Current Price ($)": 45.72,
                 "Est. ROI (%)": 18.5
             },
             {
@@ -489,39 +526,69 @@
                 "Company": "GTLS",
                 "Cost Basis ($)": 127.5,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 7.14,
+                "Est. Allocation (%)": 5.88,
                 "Current Price ($)": 150.0,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "PANW",
                 "Company": "PANW",
-                "Cost Basis ($)": 270.56,
+                "Cost Basis ($)": 266.76,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 318.3,
+                "Est. Allocation (%)": 5.88,
+                "Current Price ($)": 313.84,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "CRWD",
                 "Company": "CRWD",
-                "Cost Basis ($)": 187.67,
+                "Cost Basis ($)": 184.37,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 220.79,
+                "Est. Allocation (%)": 5.88,
+                "Current Price ($)": 216.9,
                 "Est. ROI (%)": 18.5
             },
             {
                 "Ticker": "FN",
                 "Company": "FN",
-                "Cost Basis ($)": 258.74,
+                "Cost Basis ($)": 278.06,
                 "Est. Value ($10k)": 1.5,
-                "Est. Allocation (%)": 7.14,
-                "Current Price ($)": 304.4,
+                "Est. Allocation (%)": 5.88,
+                "Current Price ($)": 327.13,
                 "Est. ROI (%)": 18.5
             }
         ],
         "trades": [
+            {
+                "Filing Date": "2026-11-05",
+                "Trade Date": "2026-10-26",
+                "Ticker": "AMAT",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "TRANSACTION FOR AMAT (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-11-05",
+                "Trade Date": "2026-10-15",
+                "Ticker": "TLK",
+                "Action": "🔴 Sale",
+                "Asset Class": "ST",
+                "Description": "TRANSACTION FOR TLK (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
+            {
+                "Filing Date": "2026-11-05",
+                "Trade Date": "2026-10-12",
+                "Ticker": "BHE",
+                "Action": "🟢 Purchase",
+                "Asset Class": "ST",
+                "Description": "TRANSACTION FOR BHE (ST) VIA PUBLIC DISCLOSURE",
+                "Disclosed Range": "$500,001 - $1,000,000",
+                "midpoint_val": 15000
+            },
             {
                 "Filing Date": "2026-10-07",
                 "Trade Date": "2026-09-25",
